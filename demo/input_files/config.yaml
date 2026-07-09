@@ -1,0 +1,22 @@
+num_reviewers: 10
+num_papers: 20
+min_reviews_per_reviewer: 4
+max_reviews_per_reviewer: 8
+min_reviews_per_paper: 3
+
+input_files_dir: "input_files"
+report_files_dir: "reports"
+output_files_dir: "output_files"
+
+files:
+  affiliations: "paper_info.csv"
+  reviewer_expertise: "reviewer_expertise.csv"
+  paper_area: "paper_area.csv"
+  must_review: "must_review.csv"
+  coi: "coi.csv"
+  paper_id_and_affiliations: "paper_id_and_affiliations.csv" #paper_id_affiliations csv file, no author information
+  reviewer_paper_match_scores: "intermediate_data/reviewer_paper_match_score.csv" #Working/Intermediate Data
+  assignment_matrix: "assignment_matrix.csv"  #Assignment matrix
+  assignment_vector: "assignment_vector.csv"  #Assignment vector
+  assignment_output: "paper_assignment.csv"
+ 

@@ -1,0 +1,21 @@
+paper_id,title,authors,affiliations
+1,Deep Learning for Robotics,Alice Smith; Bob Jones,Stanford University; MIT
+2,Transformer Models in NLP,Charlie Brown; David Miller,UC Berkeley; Carnegie Mellon University
+3,Computer Vision for Autonomous Vehicles,Eva Green; Frank Harris,California Institute of Technology; Stanford University
+4,Reinforcement Learning for Games,Grace Hopper; Alan Turing,Princeton University; Cambridge University
+5,Graph Neural Networks for Chemistry,Ida Lovelace; John von Neumann,Oxford University; MIT
+6,Privacy-Preserving Machine Learning,Ken Thompson; Dennis Ritchie,Bell Labs; Harvard University
+7,Quantum Computing Algorithms,Marie Curie; Pierre Curie,Sorbonne University; ESPCI Paris
+8,Optimization Methods in ML,Paul Dirac; Richard Feynman,Princeton University; Caltech
+9,Language Models and Ethics,Sara Connor; John Connor,Cyberdyne Systems; UCLA
+10,Anomaly Detection in Systems,Thomas Anderson; Trinity,Matrix Corp; NYU
+11,Bioinformatics and DNA Sequencing,Victor Frankenstein; Igor,University of Ingolstadt; Munich
+12,Speech Recognition with RNNs,Winston Churchill; Franklin Roosevelt,Oxford; Harvard
+13,Generative Adversarial Networks,Yann LeCun; Yoshua Bengio,NYU; University of Montreal
+14,Self-Supervised Learning,Geoffrey Hinton; Andrew Ng,University of Toronto; Stanford University
+15,Edge AI and Low-Resource Inference,Ada Lovelace; Charles Babbage,University of Cambridge; London
+16,Robotic Process Automation,Linus Torvalds; Richard Stallman,University of Helsinki; MIT
+17,Explainable AI in Healthcare,Florence Nightingale; Louis Pasteur,King's College London; Pasteur Institute
+18,Distributed Database Systems,Leslie Lamport; Jim Gray,Microsoft Research; UC Berkeley
+19,Cryptography and Blockchain,Satoshi Nakamoto; Hal Finney,Independent; UCSB
+20,Web Search and PageRank,Larry Page; Sergey Brin,Stanford University; Stanford University

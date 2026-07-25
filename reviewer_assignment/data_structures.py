@@ -89,9 +89,19 @@ class ReviewerAssignmentProblem:
         """
         # Load reviewer expertise
         df_exp = pd.read_csv(config.input_files_dir / Path(config.files["reviewer_expertise"]))
-        reviewer_col = df_exp.columns[0]
-        reviewer_ids = df_exp[reviewer_col].astype(str).tolist() #Extract the list of reviewer ids as strings.
-        areas = df_exp.columns[1:].tolist() #Extract the areas from the matrix.
+        if "Firstname" in df_exp.columns and "Lastname" in df_exp.columns:
+            reviewer_ids = [
+                f"{str(fname).strip()} {str(lname).strip()}".strip()
+                for fname, lname in zip(df_exp["Firstname"], df_exp["Lastname"])
+            ]
+            areas = [c for c in df_exp.columns if c not in ["Firstname", "Lastname"]]
+        else:
+            reviewer_ids = [
+                f"{str(fname).strip()} {str(lname).strip()}".strip()
+                for fname, lname in zip(df_exp.iloc[:, 0], df_exp.iloc[:, 1])
+            ]
+            areas = df_exp.columns[2:].tolist()
+
         matrix_exp = df_exp[areas].to_numpy() #Map the content portion of the matrix into a numpy matrix.
 
         if len(reviewer_ids) != config.num_reviewers:
@@ -147,7 +157,7 @@ class ReviewerAssignmentProblem:
             row_col = df.columns[0]
 
             csv_paper_ids = df[row_col].astype(int).tolist()
-            csv_reviewer_ids = df.columns[1:].tolist()
+            csv_reviewer_ids = [str(r).strip() for r in df.columns[1:].tolist()]
 
             # Verify that paper IDs match
             unrecognized_papers = set(csv_paper_ids) - set(paper_ids)
@@ -157,21 +167,22 @@ class ReviewerAssignmentProblem:
                     "All paper IDs in must_review / coi must exist in paper_area."
                 )
 
-            # Verify that reviewer IDs match
-            unrecognized_reviewers = set(csv_reviewer_ids) - set(reviewer_ids)
-            if unrecognized_reviewers:
+            # Match columns either by exact reviewer ID strings or positionally if count matches
+            if set(csv_reviewer_ids) == set(reviewer_ids):
+                df = df.set_index(row_col)
+                df_aligned = df.reindex(index=paper_ids, columns=reviewer_ids).fillna(0)
+                return df_aligned.to_numpy().T
+            elif len(csv_reviewer_ids) == len(reviewer_ids):
+                df = df.set_index(row_col)
+                df_aligned = df.reindex(index=paper_ids).fillna(0)
+                df_aligned.columns = reviewer_ids
+                return df_aligned.to_numpy().T
+            else:
+                unrecognized_reviewers = set(csv_reviewer_ids) - set(reviewer_ids)
                 raise ValueError(
                     f"Unrecognized reviewer IDs in file {path}: {unrecognized_reviewers}. "
                     "All reviewer IDs in must_review / coi must exist in reviewer_expertise."
                 )
-
-            # Set index to paper_id to easily reindex
-            df = df.set_index(row_col)
-            # Reindex rows to match paper_ids and columns to match reviewer_ids
-            # fillna(0) for missing values
-            df_aligned = df.reindex(index=paper_ids, columns=reviewer_ids).fillna(0)
-            # Transpose from (num_papers, num_reviewers) to (num_reviewers, num_papers)
-            return df_aligned.to_numpy().T
 
         # Load and align must review
         must_review_matrix = load_sparse_matrix(config.input_files_dir / Path(config.files["must_review"]))

@@ -1,17 +1,55 @@
 === Reviewer Assignment Summary Report ===
 Total Papers Found: 20
-Total Reviewers Found: 10
-Total Review Assignments Made (1s in matrix): 80
+Total Reviewers Found: 14
+Total Review Assignments Made (1s in matrix): 112
 
 Reviewer Workload:
   - Lowest paper count assigned to a reviewer: 8
-    Reviewers: Reviewer_1, Reviewer_2, Reviewer_3, Reviewer_4, Reviewer_5, Reviewer_6, Reviewer_7, Reviewer_8, Reviewer_9, Reviewer_10
+    Reviewers: Shanshan Xie, Yoonmyung Lee, Behnam Amelifard, Ningyuan Cao, Muya Chang, Gregory Chen, Sumanth Kamineni, Kyuho Lee, Sukhan Lee, Ashwin Lele, Yimai Peng, Weiwei Shan, Ekin Sumbul, Jong-Hyeok Yoon
   - Highest paper count assigned to a reviewer: 8
-    Reviewers: Reviewer_1, Reviewer_2, Reviewer_3, Reviewer_4, Reviewer_5, Reviewer_6, Reviewer_7, Reviewer_8, Reviewer_9, Reviewer_10
+    Reviewers: Shanshan Xie, Yoonmyung Lee, Behnam Amelifard, Ningyuan Cao, Muya Chang, Gregory Chen, Sumanth Kamineni, Kyuho Lee, Sukhan Lee, Ashwin Lele, Yimai Peng, Weiwei Shan, Ekin Sumbul, Jong-Hyeok Yoon
 
 Paper Review Counts:
   - Lowest number of reviews a paper receives: 4
-    Papers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-  - Highest number of reviews a paper receives: 4
-    Papers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    Papers: [2, 7, 8, 9, 10, 11, 12, 13, 15, 16, 18]
+  - Highest number of reviews a paper receives: 10
+    Papers: [17, 20]
+
+Role Distribution per Reviewer:
+  - Shanshan Xie: Total=8, Champ=0, Co-Champ=0, Regular=8
+  - Yoonmyung Lee: Total=8, Champ=0, Co-Champ=0, Regular=8
+  - Behnam Amelifard: Total=8, Champ=2, Co-Champ=2, Regular=4
+  - Ningyuan Cao: Total=8, Champ=3, Co-Champ=1, Regular=4
+  - Muya Chang  : Total=8, Champ=2, Co-Champ=1, Regular=5
+  - Gregory Chen: Total=8, Champ=1, Co-Champ=3, Regular=4
+  - Sumanth Kamineni: Total=8, Champ=3, Co-Champ=3, Regular=2
+  - Kyuho Lee   : Total=8, Champ=0, Co-Champ=0, Regular=8
+  - Sukhan Lee  : Total=8, Champ=0, Co-Champ=1, Regular=7
+  - Ashwin Lele : Total=8, Champ=3, Co-Champ=3, Regular=2
+  - Yimai Peng  : Total=8, Champ=3, Co-Champ=2, Regular=3
+  - Weiwei Shan : Total=8, Champ=1, Co-Champ=0, Regular=7
+  - Ekin Sumbul : Total=8, Champ=2, Co-Champ=3, Regular=3
+  - Jong-Hyeok Yoon: Total=8, Champ=0, Co-Champ=1, Regular=7
+
+Paper Assignments Details:
+  - Paper 1  : Champ=Ningyuan Cao | Co-Champ=Gregory Chen | Other Reviewers=['Shanshan Xie', 'Behnam Amelifard', 'Kyuho Lee', 'Sukhan Lee']
+  - Paper 2  : Champ=Ningyuan Cao | Co-Champ=Sumanth Kamineni | Other Reviewers=['Yoonmyung Lee', 'Gregory Chen']
+  - Paper 3  : Champ=Gregory Chen | Co-Champ=Sukhan Lee   | Other Reviewers=['Shanshan Xie', 'Yoonmyung Lee', 'Ningyuan Cao', 'Kyuho Lee', 'Jong-Hyeok Yoon']
+  - Paper 4  : Champ=Sumanth Kamineni | Co-Champ=Ningyuan Cao | Other Reviewers=['Shanshan Xie', 'Muya Chang', 'Gregory Chen', 'Kyuho Lee', 'Sukhan Lee']
+  - Paper 5  : Champ=Ashwin Lele  | Co-Champ=Yimai Peng   | Other Reviewers=['Muya Chang', 'Sumanth Kamineni', 'Sukhan Lee', 'Weiwei Shan', 'Ekin Sumbul', 'Jong-Hyeok Yoon']
+  - Paper 6  : Champ=Yimai Peng   | Co-Champ=Muya Chang   | Other Reviewers=['Shanshan Xie', 'Yoonmyung Lee', 'Ningyuan Cao', 'Ashwin Lele', 'Weiwei Shan']
+  - Paper 7  : Champ=Ashwin Lele  | Co-Champ=Ekin Sumbul  | Other Reviewers=['Sukhan Lee', 'Weiwei Shan']
+  - Paper 8  : Champ=Muya Chang   | Co-Champ=Sumanth Kamineni | Other Reviewers=['Kyuho Lee', 'Yimai Peng']
+  - Paper 9  : Champ=Ningyuan Cao | Co-Champ=Ashwin Lele  | Other Reviewers=['Yoonmyung Lee', 'Weiwei Shan']
+  - Paper 10 : Champ=Yimai Peng   | Co-Champ=Ekin Sumbul  | Other Reviewers=['Gregory Chen', 'Jong-Hyeok Yoon']
+  - Paper 11 : Champ=Yimai Peng   | Co-Champ=Jong-Hyeok Yoon | Other Reviewers=['Sukhan Lee', 'Ekin Sumbul']
+  - Paper 12 : Champ=Behnam Amelifard | Co-Champ=Gregory Chen | Other Reviewers=['Shanshan Xie', 'Yoonmyung Lee']
+  - Paper 13 : Champ=Muya Chang   | Co-Champ=Sumanth Kamineni | Other Reviewers=['Shanshan Xie', 'Gregory Chen']
+  - Paper 14 : Champ=Sumanth Kamineni | Co-Champ=Gregory Chen | Other Reviewers=['Yoonmyung Lee', 'Behnam Amelifard', 'Ningyuan Cao', 'Muya Chang', 'Kyuho Lee', 'Ashwin Lele']
+  - Paper 15 : Champ=Behnam Amelifard | Co-Champ=Ekin Sumbul  | Other Reviewers=['Kyuho Lee', 'Jong-Hyeok Yoon']
+  - Paper 16 : Champ=Ekin Sumbul  | Co-Champ=Behnam Amelifard | Other Reviewers=['Kyuho Lee', 'Jong-Hyeok Yoon']
+  - Paper 17 : Champ=Ashwin Lele  | Co-Champ=Yimai Peng   | Other Reviewers=['Shanshan Xie', 'Yoonmyung Lee', 'Behnam Amelifard', 'Muya Chang', 'Sumanth Kamineni', 'Sukhan Lee', 'Weiwei Shan', 'Jong-Hyeok Yoon']
+  - Paper 18 : Champ=Ekin Sumbul  | Co-Champ=Behnam Amelifard | Other Reviewers=['Weiwei Shan', 'Jong-Hyeok Yoon']
+  - Paper 19 : Champ=Weiwei Shan  | Co-Champ=Ashwin Lele  | Other Reviewers=['Shanshan Xie', 'Yoonmyung Lee', 'Yimai Peng']
+  - Paper 20 : Champ=Sumanth Kamineni | Co-Champ=Ashwin Lele  | Other Reviewers=['Behnam Amelifard', 'Ningyuan Cao', 'Muya Chang', 'Kyuho Lee', 'Sukhan Lee', 'Yimai Peng', 'Weiwei Shan', 'Ekin Sumbul']
 ===========================================

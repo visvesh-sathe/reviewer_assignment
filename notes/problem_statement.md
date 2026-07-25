@@ -7,17 +7,18 @@ The goal of this project is to build a Python package to perform optimal reviewe
 ## Input Data Elements
 The system reads the following files:
 * **Affiliations**: A CSV containing tiles like `paper_id`, `title`, and multiple authors and affiliations encoded `author_<number>`, and `affiliations_<number>`.
-* **Reviewer Expertise**: A CSV containing reviewer IDs and their rated expertise scores (from 0 to 10) in various sub-committee areas.
+* **Reviewer Expertise**: A CSV containing reviewer names broken into two columns (`Firstname` and `Lastname`) and their rated expertise scores (from 0 to 10) in various sub-committee areas.
 * **Paper Area**: A CSV containing paper IDs and their relevance scores (from 0 to 10) in the same set of areas.
 * **Must-review**: A sparse CSV containing forced assignments of reviewers (denoted by `1`).
 * **Conflict of Interest (COI)**: A sparse CSV listing conflicts where a reviewer cannot review a paper (denoted by `1`).
-* **Config**: A YAML file containing run settings (`num_reviewers`, `num_papers`, reviewer/paper constraints, and relative paths to all input files).
+* **Config**: A YAML file containing run settings (`num_reviewers`, `num_papers`, reviewer/paper constraints, `chair` and `cochair` names, and relative paths to all input files).
 
 ## Execution Pipeline
 1. **Scrub Affiliations**: Cleans `affiliations.csv` to keep only `paper_id` and a list of `affiliations` (scrubbing titles and author names) to produce `paper_id_and_affiliations.csv`.
 2. **Load & Validate**:
    * Assures that all scores are numeric and strictly in the `[0, 10]` range.
    * Assures reviewer and paper counts match the configuration.
+   * Parses reviewer names by combining `Firstname` and `Lastname`.
    * Assures areas match and align, and checks that must-review and COI files do not contain unrecognized IDs.
    * Assures workload constraints are mathematically feasible before starting:
      $$\text{num\_reviewers} \times \text{max\_reviews\_per\_reviewer} \ge \text{num\_papers} \times \text{min\_reviews\_per\_paper}$$
@@ -27,7 +28,27 @@ The system reads the following files:
      $$\sum_{r} \sum_{p} S_{r,p} \cdot X_{r,p}$$
      where matching scores $S$ is computed as the matrix product: $\text{Reviewer Expertise} \times \text{Paper Area}^T$.
    * **Constraints**: Hard conflicts (COI = 0), forced assignments (Must Review = 1), and user-configured minimum/maximum workloads per reviewer and paper.
-4. **Report & Summarize**: Generates detailed statistics on paper counts, reviewer assignments, and workload metrics. Outputs the text log (`summary_report.txt`) and distribution charts into the `reports/` folder.
+4. Next, it's time to pick a champion. Take the matrix assignment from Step three and create a complement of that matrix (ones become 0s and 0s become 1s).
+  This matrix is now the champ_coi matrix. In other words, the champ has to be one of the reviewers of the paper.
+  * In addition to non-reviewers, flood the Chair and Co-Chair as COI unconditionally for all papers, preventing them from being appointed as champions even if they are assigned reviewers for the paper.
+  * Now setup an MILP with the following conditions. This is the same problem as step 3 but with different constraints.
+    * Each paper must have one and only one champion
+    * continue to respect the coi matrix and flooded Chair/Co-Chair COIs
+    * ignore the must-review matrix
+    * Total champion assignments for a reviewer cannot exceed  ceiling(num_papers/num_reviewers)+1 (0 for Chair/Co-Chair). 
+    * Total champion assignments for a reviewer cannot be less than: floor (num_papers/num_reviewers)-1 (0 for Chair/Co-Chair).
+    * Under these constraints, goal is to maximize the sum of matching scores where the matching scores $S$ are defined as in 4 above.
+  * Finally, check that all constraints are satisfied, and that the champion is also an existing reviewer (and not Chair/Co-Chair).
+5. Next, it's time to pick a co-champion. Add the matrix assignment from Step 4 (sparse matrix of reviewers_by_papers with any column having only a single "1")
+   and add it to the champ_coi to create a cochamp_coi_matrix. Now all reviewers except the champion are the only ones which are not a coi.
+  * Unconditionally flood the Chair and Co-Chair as COI for all papers during co-champion assignment as well.
+  * With this cochamp_coi matrix, solve for a cochamp assignment matrix by solving the same MILP as step 4 above (except the coi matrix is different)
+    * Each paper must have one and only one co-champion
+    * Total co-champion assignments for a reviewer cannot exceed  ceiling(num_papers/num_reviewers)+1 (0 for Chair/Co-Chair).
+    * Under these constraints, goal is to maximize the sum of matching scores where the matching scores $S$ are defined as in 4 above.
+  * Finally, check that all constraints are satisfied, and that the co-champion is also an existing reviewer (and not Chair/Co-Chair).
+
+6. **Report & Summarize**: Generates detailed statistics on paper counts, reviewer assignments, champion assignments, cochampion assignments, and workload metrics that include the amount of times a reviewer is champ and cochamp . Outputs the text log (`summary_report.txt`) and distribution charts into the `reports/` folder. 
 
 ## Outputs
 The package creates the following files:

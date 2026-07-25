@@ -22,34 +22,41 @@ def main():
         default="input_files/config.yaml",
         help="Path to YAML config file (default: input_files/config.yaml)",
     )
-    # parser.add_argument(
-    #     "--scrub-output",
-    #     default="paper_id_and_affiliations.csv",
-    #     help="Path to write scrubbed affiliations CSV (default: paper_id_and_affiliations.csv)",
-    # )
-    # parser.add_argument(
-    #     "--matching-output",
-    #     default="intermediate_data/reviewer_matching.csv",
-    #     help="Path to write reviewer matching matrix CSV (default: intermediate_data/reviewer_matching.csv)",
-    # )
-    # parser.add_argument(
-    #     "--matrix-output",
-    #     default="assignment_matrix.csv",
-    #     help="Path to write assignment matrix CSV (default: assignment_matrix.csv)",
-    # )
-    # parser.add_argument(
-    #     "--vector-output",
-    #     default="assignment_vector.csv",
-    #     help="Path to write assignment vector CSV (default: assignment_vector.csv)",
-    # )
-    # parser.add_argument(
-    #     "--report-dir",
-    #     default="reports",
-    #     help="Directory to save generated report charts (default: reports)",
-    # )
+    parser.add_argument(
+        "--scrub-output",
+        help="Path to write scrubbed affiliations CSV",
+    )
+    parser.add_argument(
+        "--assignment-output",
+        help="Path to write the flat assignments CSV",
+    )
+    parser.add_argument(
+        "--matching-output",
+        help="Path to write reviewer matching matrix CSV",
+    )
+    parser.add_argument(
+        "--matrix-output",
+        help="Path to write reviewer assignment matrix CSV",
+    )
+    parser.add_argument(
+        "--champ-matrix-output",
+        help="Path to write champion assignment matrix CSV",
+    )
+    parser.add_argument(
+        "--cochamp-matrix-output",
+        help="Path to write co-champion assignment matrix CSV",
+    )
+    parser.add_argument(
+        "--vector-output",
+        help="Path to write assignment vector CSV",
+    )
+    parser.add_argument(
+        "--report-dir",
+        help="Directory to save generated report charts",
+    )
     args = parser.parse_args()
 
-    # 1. Load config and prepare output directories
+    # 1. Load config
     if not os.path.exists(args.config):
         print(f"Error: Config file not found at {args.config}", file=sys.stderr)
         sys.exit(1)
@@ -61,10 +68,42 @@ def main():
         print(f"Error loading configuration: {e}", file=sys.stderr)
         sys.exit(1)
 
-    os.makedirs(config.output_files_dir, exist_ok=True)
-    os.makedirs(config.report_files_dir, exist_ok=True)
+    # 2. Determine output paths (CLI overrides config values)
+    def resolve_output_path(cli_override, config_key, default_name):
+        if cli_override:
+            return Path(cli_override)
+        config_val = config.files.get(config_key, default_name)
+        val_path = Path(config_val)
+        if val_path.is_absolute():
+            return val_path
+        out_dir = Path(config.output_files_dir)
+        try:
+            val_path.relative_to(out_dir)
+            return val_path
+        except ValueError:
+            return out_dir / val_path
 
-    # 2. Scrub affiliations
+    paper_id_and_affiliations = resolve_output_path(args.scrub_output, "paper_id_and_affiliations", "paper_id_and_affiliations.csv")
+    assignment_output = resolve_output_path(args.assignment_output, "assignment_output", "assignments.csv")
+    matching_output = resolve_output_path(args.matching_output, "reviewer_paper_match_scores", "intermediate_data/reviewer_matching.csv")
+    matrix_output = resolve_output_path(args.matrix_output, "reviewer_assignment_matrix", "reviewer_assignment_matrix.csv")
+    if not args.matrix_output and "reviewer_assignment_matrix" not in config.files and "assignment_matrix" in config.files:
+        matrix_output = resolve_output_path(args.matrix_output, "assignment_matrix", "assignment_matrix.csv")
+
+    champ_matrix_output = resolve_output_path(args.champ_matrix_output, "champ_assignment_matrix", "champ_assignment_matrix.csv")
+    cochamp_matrix_output = resolve_output_path(args.cochamp_matrix_output, "cochamp_assignment_matrix", "cochamp_assignment_matrix.csv")
+    vector_output = resolve_output_path(args.vector_output, "assignment_vector", "assignment_vector.csv")
+
+    report_dir = args.report_dir if args.report_dir else config.report_files_dir
+
+    # Create directories for outputs
+    os.makedirs(config.output_files_dir, exist_ok=True)
+    os.makedirs(report_dir, exist_ok=True)
+    for path in [paper_id_and_affiliations, assignment_output, matching_output, matrix_output, champ_matrix_output, cochamp_matrix_output, vector_output]:
+        if path.parent:
+            os.makedirs(path.parent, exist_ok=True)
+
+    # 3. Scrub affiliations
     affiliations_file = config.input_files_dir / Path(config.files.get("affiliations"))
     if not affiliations_file or not os.path.exists(affiliations_file):
         print(
@@ -74,7 +113,6 @@ def main():
         sys.exit(1)
 
     print("Scrubbing affiliations...")
-    paper_id_and_affiliations= config.input_files_dir /  Path(config.files.get("paper_id_and_affiliations"))
     try:
         AffiliationScrubber.scrub(affiliations_file, paper_id_and_affiliations)
         print(f"Successfully scrubbed affiliations. Output saved to {paper_id_and_affiliations}")
@@ -82,7 +120,7 @@ def main():
         print(f"Error scrubbing affiliations: {e}", file=sys.stderr)
         sys.exit(1)
 
-    # 3. Load problem matrices
+    # 4. Load problem matrices
     print("Loading data files and aligning matrices...")
     try:
         problem = ReviewerAssignmentProblem.load(config)
@@ -90,15 +128,15 @@ def main():
         print(f"Error loading and aligning data files: {e}", file=sys.stderr)
         sys.exit(1)
 
-    # Save matching matrix to intermediate_data subdirectory
+    # Save matching matrix
     print("Computing and saving reviewer matching matrix...")
     try:
-        problem.save_matching_matrix(config.files.get("reviewer_paper_match_scores"))
+        problem.save_matching_matrix(matching_output)
     except Exception as e:
         print(f"Error saving matching matrix: {e}", file=sys.stderr)
         sys.exit(1)
 
-    # 4. Solve the MILP
+    # 5. Solve the MILP
     print("Solving the reviewer assignment MILP...")
     try:
         solver = ReviewerAssignmentSolver(problem)
@@ -111,7 +149,25 @@ def main():
         f"\nOptimal solution found! Total Matching Score (Objective Value): {objective_value:.2f}"
     )
 
-    # 5. Extract and print assignments
+    # Solve champion assignment
+    print("Solving the champion assignment MILP...")
+    try:
+        champ_matrix, champ_objective_value = solver.solve_champion(assignment_matrix)
+        print(f"Champion assignment found! Objective Value: {champ_objective_value:.2f}")
+    except Exception as e:
+        print(f"Error during champion assignment solving: {e}", file=sys.stderr)
+        sys.exit(1)
+
+    # Solve co-champion assignment
+    print("Solving the co-champion assignment MILP...")
+    try:
+        cochamp_matrix, cochamp_objective_value = solver.solve_cochampion(assignment_matrix, champ_matrix)
+        print(f"Co-champion assignment found! Objective Value: {cochamp_objective_value:.2f}")
+    except Exception as e:
+        print(f"Error during co-champion assignment solving: {e}", file=sys.stderr)
+        sys.exit(1)
+
+    # 6. Extract and print assignments
     reviewer_ids = problem.reviewer_expertise.reviewer_ids
     paper_ids = problem.paper_area.paper_ids
 
@@ -129,6 +185,14 @@ def main():
         for p_id in assigned_p_ids:
             assignments.append({"reviewer_id": r_id, "paper_id": p_id})
 
+    # Save assignments.csv
+    try:
+        df_assign = pd.DataFrame(assignments)
+        df_assign.to_csv(assignment_output, index=False)
+        print(f"Saved flat list of assignments to CSV: {assignment_output}")
+    except Exception as e:
+        print(f"Error saving assignments list: {e}", file=sys.stderr)
+        sys.exit(1)
 
     # Save assignment_matrix.csv
     try:
@@ -138,21 +202,46 @@ def main():
             columns=paper_ids
         )
         df_matrix.index.name = "reviewer_id"
-        df_matrix.to_csv(config.files.get("assignment_matrix"))
-        assignment_matrix_file = config.files.get("assignment_matrix")
-        print(f"Saved assignment matrix to CSV: {assignment_matrix_file} ")
+        df_matrix.to_csv(matrix_output)
+        print(f"Saved assignment matrix to CSV: {matrix_output}")
     except Exception as e:
         print(f"Error saving assignment matrix: {e}", file=sys.stderr)
         sys.exit(1)
 
+    # Save champ_assignment_matrix.csv
+    try:
+        df_champ_matrix = pd.DataFrame(
+            champ_matrix,
+            index=reviewer_ids,
+            columns=paper_ids
+        )
+        df_champ_matrix.index.name = "reviewer_id"
+        df_champ_matrix.to_csv(champ_matrix_output)
+        print(f"Saved champion assignment matrix to CSV: {champ_matrix_output}")
+    except Exception as e:
+        print(f"Error saving champion assignment matrix: {e}", file=sys.stderr)
+        sys.exit(1)
+
+    # Save cochamp_assignment_matrix.csv
+    try:
+        df_cochamp_matrix = pd.DataFrame(
+            cochamp_matrix,
+            index=reviewer_ids,
+            columns=paper_ids
+        )
+        df_cochamp_matrix.index.name = "reviewer_id"
+        df_cochamp_matrix.to_csv(cochamp_matrix_output)
+        print(f"Saved co-champion assignment matrix to CSV: {cochamp_matrix_output}")
+    except Exception as e:
+        print(f"Error saving co-champion assignment matrix: {e}", file=sys.stderr)
+        sys.exit(1)
+
     # Save assignment_vector.csv
     try:
-        # Flat list of values representing the matrix flattened row by row
         flat_vector = assignment_matrix.flatten()
         df_vector = pd.DataFrame(flat_vector, columns=["assigned"])
-        df_vector.to_csv(config.files.get("assignment_vector"), index=False)
-        assignment_vector_file = config.files["assignment_vector"]
-        print(f"Saved assignment vector to CSV: {assignment_vector_file}")
+        df_vector.to_csv(vector_output, index=False)
+        print(f"Saved assignment vector to CSV: {vector_output}")
     except Exception as e:
         print(f"Error saving assignment vector: {e}", file=sys.stderr)
         sys.exit(1)
@@ -160,9 +249,11 @@ def main():
     # Generate reports and plots
     print("\nGenerating assignment summary reports and charts...")
     try:
-        reporter = ReviewerAssignmentReporter(problem, assignment_matrix)
-        reporter.save_text_report(config.report_files_dir)
-        reporter.save_plots(config.report_files_dir)
+        reporter = ReviewerAssignmentReporter(
+            problem, assignment_matrix, champ_matrix, cochamp_matrix
+        )
+        reporter.save_text_report(report_dir)
+        reporter.save_plots(report_dir)
     except Exception as e:
         print(f"Error generating reports: {e}", file=sys.stderr)
         sys.exit(1)

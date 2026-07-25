@@ -1,11 +1,12 @@
-num_reviewers: 10
+num_reviewers: 14
 num_papers: 20
 min_reviews_per_reviewer: 4
 max_reviews_per_reviewer: 8
 min_reviews_per_paper: 4
 #Max champions will be calculated as : ceiling (num_papers/num_reviewers)
 #Min champions will be calculated as : floor (num_papers/num_reviewers)
-
+chair: "Shanshan Xie"
+cochair: "Yoonmyung Lee"
 
 input_files_dir: "input_files"
 report_files_dir: "reports"
@@ -17,9 +18,11 @@ files:
   paper_area: "paper_area.csv"
   must_review: "must_review.csv"
   coi: "coi.csv"
-  paper_id_and_affiliations: "paper_id_and_affiliations.csv" #paper_id_affiliations csv file, no author information
-  reviewer_paper_match_scores: "intermediate_data/reviewer_paper_match_score.csv" #Working/Intermediate Data
-  assignment_matrix: "assignment_matrix.csv"  #Assignment matrix
-  assignment_vector: "assignment_vector.csv"  #Assignment vector
-  assignment_output: "paper_assignment.csv"
+  paper_id_and_affiliations: "output_files/paper_id_and_affiliations.csv" #paper_id_affiliations csv file, no author information
+  reviewer_paper_match_scores: "output_files/intermediate_data/reviewer_paper_match_score.csv" #Working/Intermediate Data
+  reviewer_assignment_matrix: "output_files/reviewer_assignment_matrix.csv"  #Reviewer Assignment matrix
+  champ_assignment_matrix: "output_files/champ_assignment_matrix.csv"  #champ Assignment matrix
+  cochamp_assignment_matrix: "output_files/cochamp_assignment_matrix.csv"  #cochamp Assignment matrix
+  assignment_vector: "output_files/assignment_vector.csv"  #Assignment vector
+  assignment_output: "output_files/paper_assignment.csv"
  

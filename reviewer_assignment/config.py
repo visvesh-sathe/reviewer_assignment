@@ -20,6 +20,8 @@ class Config:
     input_files_dir: str
     report_files_dir: str
     output_files_dir: str
+    chair: str = ""
+    cochair: str = ""
     files: Dict[str, str] = field(default_factory=dict)
 
     @classmethod
@@ -44,6 +46,8 @@ class Config:
             input_files_dir = data["input_files_dir"],
             report_files_dir = data["report_files_dir"],
             output_files_dir = data["output_files_dir"],
+            chair=str(data.get("chair", "")).strip(),
+            cochair=str(data.get("cochair", "")).strip(),
             files=data.get("files", {}),
         )
         config.validate()

@@ -1,0 +1,7 @@
+=== Conflict of Interest (COI) Report ===
+Total Papers Evaluated: 20
+Total Reviewers Evaluated: 14
+
+No institutional conflicts of interest were identified between any paper and reviewer.
+
+Total Conflicts Identified: 0

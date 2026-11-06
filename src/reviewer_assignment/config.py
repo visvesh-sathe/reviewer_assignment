@@ -34,8 +34,27 @@ class Config:
         Returns:
             An instance of Config.
         """
-        with open(path, "r") as f:
+        cfg_path = Path(path).resolve()
+        with open(cfg_path, "r") as f:
             data = yaml.safe_load(f)
+
+        # Infer base directory from config file location
+        if cfg_path.parent.name == "input_files":
+            base_dir = cfg_path.parent.parent
+        else:
+            base_dir = cfg_path.parent
+
+        def resolve_dir(d_name: str) -> str:
+            d_path = Path(d_name)
+            if d_path.is_absolute() or d_path.exists():
+                return str(d_path)
+            if (base_dir / d_path).exists() or not d_path.exists():
+                return str(base_dir / d_path)
+            return str(d_path)
+
+        input_files_dir = resolve_dir(data.get("input_files_dir", "input_files"))
+        report_files_dir = resolve_dir(data.get("report_files_dir", "reports"))
+        output_files_dir = resolve_dir(data.get("output_files_dir", "output_files"))
 
         config = cls(
             num_reviewers=int(data["num_reviewers"]),
@@ -43,9 +62,9 @@ class Config:
             min_reviews_per_reviewer=int(data["min_reviews_per_reviewer"]),
             max_reviews_per_reviewer=int(data["max_reviews_per_reviewer"]),
             min_reviews_per_paper=int(data["min_reviews_per_paper"]),
-            input_files_dir = data["input_files_dir"],
-            report_files_dir = data["report_files_dir"],
-            output_files_dir = data["output_files_dir"],
+            input_files_dir=input_files_dir,
+            report_files_dir=report_files_dir,
+            output_files_dir=output_files_dir,
             chair=str(data.get("chair", "")).strip(),
             cochair=str(data.get("cochair", "")).strip(),
             files=data.get("files", {}),
@@ -84,9 +103,7 @@ class Config:
 
 #Update me to add output files too
         required_files = [
-            "affiliations",
             "reviewer_expertise",
-            "paper_area",
             "must_review",
             "coi",
         ]
@@ -95,8 +112,16 @@ class Config:
                 raise ValueError(
                     f"Missing required file path under files in config: '{key}'"
                 )
-            file_path = self.input_files_dir / Path(self.files[key])
+            file_path = Path(self.input_files_dir) / Path(self.files[key])
             if not os.path.exists(file_path):
                 raise ValueError(
                     f"File specified for '{key}' does not exist: '{file_path}'"
                 )
+
+        has_paper_tech = "paper_technical_areas" in self.files and os.path.exists(Path(self.input_files_dir) / Path(self.files["paper_technical_areas"]))
+        has_paper_area = "paper_area" in self.files and os.path.exists(Path(self.input_files_dir) / Path(self.files["paper_area"]))
+        if not has_paper_tech and not has_paper_area:
+            raise ValueError(
+                f"Neither 'paper_technical_areas' nor 'paper_area' file found in '{self.input_files_dir}'."
+            )
+

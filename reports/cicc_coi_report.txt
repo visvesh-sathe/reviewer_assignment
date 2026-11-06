@@ -1,0 +1,72 @@
+=== Conflict of Interest (COI) Report ===
+Total Papers Evaluated: 67
+Total Reviewers Evaluated: 17
+Total Conflicts Identified: 18
+
+=== Conflicts by Paper ===
+
+Paper 31:
+  - Reviewer: Weiwei Shan (Affiliation: 'Southeast University')
+    Reason: Matches paper affiliation(s) -> Southeast University
+
+Paper 32:
+  - Reviewer: Weiwei Shan (Affiliation: 'Southeast University')
+    Reason: Matches paper affiliation(s) -> Southeast University
+
+Paper 34:
+  - Reviewer: Aoyang Zhang (Affiliation: 'Tsinghua University')
+    Reason: Matches paper affiliation(s) -> Tsinghua University
+
+Paper 57:
+  - Reviewer: Aoyang Zhang (Affiliation: 'Tsinghua University')
+    Reason: Matches paper affiliation(s) -> School of Integrated Circuits, Tsinghua University, Beijing, China
+
+Paper 224:
+  - Reviewer: Ashwin Lele (Affiliation: 'TSMC')
+    Reason: Matches paper affiliation(s) -> TSMC, Hsinchu, Taiwan
+
+Paper 294:
+  - Reviewer: Po-Tsang Huang (Affiliation: 'National Yang Ming Chiao Tung University')
+    Reason: Matches paper affiliation(s) -> National Yang Ming Chiao Tung University
+
+Paper 328:
+  - Reviewer: Weiwei Shan (Affiliation: 'Southeast University')
+    Reason: Matches paper affiliation(s) -> Southeast University
+
+Paper 333:
+  - Reviewer: Weiwei Shan (Affiliation: 'Southeast University')
+    Reason: Matches paper affiliation(s) -> Southeast University
+
+Paper 358:
+  - Reviewer: Yoonmyung Lee (Affiliation: 'Sungkyunkwan University')
+    Reason: Matches paper affiliation(s) -> Sungkyunkwan University
+  - Reviewer: Sukhan Lee (Affiliation: 'Samsung')
+    Reason: Matches paper affiliation(s) -> Samsung Electronics
+
+Paper 408:
+  - Reviewer: Shanshan Xie (Affiliation: 'Intel')
+    Reason: Matches paper affiliation(s) -> Intel Corporation
+  - Reviewer: Gregory Chen (Affiliation: 'Intel Corporation')
+    Reason: Matches paper affiliation(s) -> Intel Corporation
+
+Paper 483:
+  - Reviewer: Weiwei Shan (Affiliation: 'Southeast University')
+    Reason: Matches paper affiliation(s) -> Southeast University
+
+Paper 581:
+  - Reviewer: Aoyang Zhang (Affiliation: 'Tsinghua University')
+    Reason: Matches paper affiliation(s) -> Tsinghua University
+
+Paper 606:
+  - Reviewer: Shanshan Xie (Affiliation: 'Intel')
+    Reason: Matches paper affiliation(s) -> Intel, Intel Corporation
+  - Reviewer: Gregory Chen (Affiliation: 'Intel Corporation')
+    Reason: Matches paper affiliation(s) -> Intel, Intel Corporation
+
+Paper 629:
+  - Reviewer: Weiwei Shan (Affiliation: 'Southeast University')
+    Reason: Matches paper affiliation(s) -> Southeast University
+
+Paper 654:
+  - Reviewer: Weiwei Shan (Affiliation: 'Southeast University')
+    Reason: Matches paper affiliation(s) -> Southeast University

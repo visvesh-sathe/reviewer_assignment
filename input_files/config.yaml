@@ -1,7 +1,7 @@
-num_reviewers: 14
-num_papers: 20
-min_reviews_per_reviewer: 4
-max_reviews_per_reviewer: 8
+num_reviewers: 17
+num_papers: 67
+min_reviews_per_reviewer: 15
+max_reviews_per_reviewer: 20
 min_reviews_per_paper: 4
 #Max champions will be calculated as : ceiling (num_papers/num_reviewers)
 #Min champions will be calculated as : floor (num_papers/num_reviewers)
@@ -13,12 +13,13 @@ report_files_dir: "reports"
 output_files_dir: "output_files"
 
 files:
-  affiliations: "paper_info.csv"
-  reviewer_expertise: "reviewer_expertise.csv"
-  paper_area: "paper_area.csv"
-  must_review: "must_review.csv"
-  coi: "coi.csv"
-  paper_id_and_affiliations: "output_files/paper_id_and_affiliations.csv" #paper_id_affiliations csv file, no author information
+  affiliations: "cicc_paper_info.csv" #in input_files - the full list of authors/affiliations/etc.
+  reviewer_expertise: "reviewer_expertise.csv" #in input_files
+  paper_technical_areas: "cicc_paper_area.csv" #in input_files - human-populated paper technical areas
+  must_review: "must_review.csv" #in input_files
+  coi: "coi.csv" #in input_files
+  paper_id_and_affiliations: "intermediate_data/paper_id_and_affiliations.csv" #paper_id_affiliations csv file, no author information
+  paperID_areas: "intermediate_data/paperID_areas.csv" #pruned paperID areas file generated in intermediate_data
   reviewer_paper_match_scores: "output_files/intermediate_data/reviewer_paper_match_score.csv" #Working/Intermediate Data
   reviewer_assignment_matrix: "output_files/reviewer_assignment_matrix.csv"  #Reviewer Assignment matrix
   champ_assignment_matrix: "output_files/champ_assignment_matrix.csv"  #champ Assignment matrix

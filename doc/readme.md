@@ -20,21 +20,27 @@ Specifically, the optimizer:
 
 ---
 
-## 2. Running the Optimizer
-We have set up a pre-configured example using the files in the `input_files/` folder.
+## 2. Standalone Affiliation Extraction
+The `src/extract_affiliations.py` script reads the YAML configuration file (`--config input_files/config.yaml` by default, or an alternative YAML via `--config path/to/config.yaml`) to dynamically resolve input file paths (`affiliations`, `reviewer_expertise`) and output file locations (`paper_id_and_affiliations`, `paper_technical_areas`).
+
+To extract affiliations and technical areas template using the configuration file, run:
+
+```bash
+python3 src/extract_affiliations.py --config input_files/config.yaml
+```
+*(Optional flags: `--config path/to/config.yaml`, `--input path/to/paper_info.csv`, `--output path/to/paper_id_and_affiliations.csv`, `--output-technical-areas path/to/paper_technical_areas.csv`, `--reviewer-expertise path/to/reviewer_expertise.csv`)*
+
+---
+
+## 3. Running the Assignment Optimizer
+We have set up a pre-configured example using the files in the `input_files/` folder. All Python library modules reside in `src/`, and the primary caller script resides in `.agents/`.
 
 To run the optimizer, open your terminal in the project root directory and execute:
 
 ```bash
-python3 -m reviewer_assignment \
-  --config input_files/config.yaml \
-  --scrub-output paper_id_and_affiliations.csv \
-  --assignment-output assignments.csv \
-  --matching-output intermediate_data/reviewer_matching.csv \
-  --matrix-output assignment_matrix.csv \
-  --vector-output assignment_vector.csv \
-  --report-dir reports
+python3 .agents/assign_reviewers.py --config input_files/config.yaml
 ```
+*(Alternatively, you can run `python3 .agents/main.py` or set `PYTHONPATH=src python3 -m reviewer_assignment`)*
 
 This will run the pipeline, solve the assignment problem for 14 reviewers and 20 papers, resolve champion and co-champion assignments (excluding the Chair and Co-Chair from champion/co-champion roles), print the results, and write all output files, reports, and plots directly into the project directory.
 
@@ -63,15 +69,65 @@ After running the optimizer, you will find several folders and files. Here is wh
 
 ### C. Cleaned Data & Intermediate Files
 * **`paper_id_and_affiliations.csv`**: A scrubbed version of paper affiliations. It lists only the paper ID and institutions, with author names and titles removed.
+* **`paper_technical_areas.csv`**: A mapping file listing each paper's `paper_ID`, `paper_title`, and technical area scores.
 * **`intermediate_data/reviewer_matching.csv`**: A table showing the calculated matching quality score for every reviewer-paper pair before assignments are made.
 
 ---
 
 ## 4. Running with Your Own Data
 To run the optimizer with your own files:
-1. Prepare your input files (affiliations, reviewer expertise, paper areas, must-review, and conflict of interest) matching the CSV formats of the files inside `input_files/`.
-2. Create your own `config.yaml` specifying the paths to your CSV files and your review count limits.
-3. Run:
+1. **Prepare Reviewer Expertise (`reviewer_expertise.csv`)**:
+   - Create columns `Firstname`, `Lastname`, and `Affiliation`.
+   - Reviewer names are concatenated using Pandas into `"Firstname Lastname"` format for all logs, matrices, and reports.
+   - The `Affiliation` column (and any `areas` metadata header) is automatically ignored during matrix calculations.
+   - Add your subcommittee expertise areas as subsequent columns (e.g., `Dig. Circuits`, `AMS Circuits`, `ML/AI`, etc.) with numeric rating scores from `0` to `10`.
+2. **Prepare Other Input Files**:
+   - Match the CSV formats for paper areas (`paper_area.csv`), forced assignments (`must_review.csv`), conflicts of interest (`coi.csv`), and paper info (`paper_info.csv`).
+3. **Create your YAML configuration (`config.yaml`)**:
+   - Specify file paths, `num_reviewers`, `num_papers`, workload constraints, `chair`, and `cochair`.
+4. **Run**:
    ```bash
-   python3 -m reviewer_assignment --config path/to/your/config.yaml
+   python3 .agents/assign_reviewers.py --config path/to/your/config.yaml
    ```
+
+---
+
+## 5. New User Checklist & Setup Workflow
+
+Follow this step-by-step workflow when setting up and running the pipeline with new paper submission data:
+
+1. **Extract Affiliations & Technical Area Template**:
+   - **Input Files Used**: Specified dynamically in the YAML config under `files.affiliations` (default: `input_files/paper_info.csv`) and `files.reviewer_expertise` (default: `input_files/reviewer_expertise.csv`).
+   - **Action**: Run the affiliation extraction script (accepts `--config` / `-c` for alternative YAML configuration files):
+     ```bash
+     python3 src/extract_affiliations.py --config input_files/config.yaml
+     ```
+   - **Output Files Generated**: Specified in the YAML config under `files.paper_technical_areas` (default: `output_files/paper_technical_areas.csv`) and `files.paper_id_and_affiliations` (default: `output_files/paper_id_and_affiliations.csv`).
+
+2. **Move Populated Technical Areas to Input Directory**:
+   - **Input Files Used**: `output_files/paper_technical_areas.csv` (filled in with weights by the Chair).
+   - **Action**: Move the populated file over to the `input_files/` directory (`input_files/paper_technical_areas.csv`).
+
+3. **Generate Conflict of Interest (COI) Matrix**:
+   - **Input Files Used**: `input_files/reviewer_expertise.csv` (reviewer names & affiliations) and `output_files/paper_id_and_affiliations.csv` (paper IDs & affiliations).
+   - **Action**: Run the COI matrix generator (following `input_files/coi_matrix_generation.md`):
+     ```bash
+     python3 src/generate_coi_matrix.py
+     ```
+   - **Output Files Generated**:
+     - `output_files/coi.csv`: Binary matrix with rows of paper IDs and columns of reviewer names (`1` for matching institutional COI, `0` otherwise).
+     - `reports/coi_report.txt`: Detailed conflict report.
+
+4. **Place COI File in Input Directory**:
+   - **Input Files Used**: `output_files/coi.csv`.
+   - **Action**: Move or copy `coi.csv` into the `input_files/` directory (`input_files/coi.csv`).
+
+5. **Run the Optimizer Package**:
+   - **Input Files Used**: `input_files/reviewer_expertise.csv`, `input_files/coi.csv`, `input_files/paper_technical_areas.csv`, `input_files/must_review.csv`, and `input_files/config.yaml`.
+   - **Action**: Run the reviewer assignment caller script:
+     ```bash
+     python3 .agents/assign_reviewers.py --config input_files/config.yaml
+     ```
+   - **Output Files Generated**: Outputs flat assignments (`paper_assignment.csv`), solved matrices, flattened vectors, and statistical summary reports/charts in `reports/`.
+
+

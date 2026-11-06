@@ -1,0 +1,21 @@
+paper_ID,paper_title,Dig. Circuits,AMS Circuits,CIM,SoC_Processors,ML/AI,Clocking,Sensors,Powermanagement
+1,Deep Learning for Robotics,0.0,0.0,0.0,0.4,0.6,0.0,0.0,0.0
+2,Transformer Models in NLP,0.0,0.3,0.0,0.0,0.7,0.0,0.0,0.0
+3,Computer Vision for Autonomous Vehicles,0.0,0.0,0.5,0.0,0.5,0.0,0.0,0.0
+4,Reinforcement Learning for Games,0.3,0.0,0.0,0.0,0.7,0.0,0.0,0.0
+5,Graph Neural Networks for Chemistry,0.0,0.0,0.0,0.0,0.7,0.0,0.0,0.3
+6,Privacy-Preserving Machine Learning,0.0,0.0,0.0,0.0,0.6,0.0,0.4,0.0
+7,Quantum Computing Algorithms,0.5,0.0,0.0,0.0,0.0,0.5,0.0,0.0
+8,Optimization Methods in ML,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+9,Language Models and Ethics,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+10,Anomaly Detection in Systems,0.0,0.0,0.0,0.0,0.0,0.5,0.5,0.0
+11,Bioinformatics and DNA Sequencing,0.0,0.0,0.0,0.0,0.0,0.0,0.6,0.4
+12,Speech Recognition with RNNs,0.0,0.5,0.0,0.0,0.5,0.0,0.0,0.0
+13,Generative Adversarial Networks,0.0,0.0,0.4,0.0,0.6,0.0,0.0,0.0
+14,Self-Supervised Learning,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+15,Edge AI and Low-Resource Inference,0.0,0.0,0.0,0.0,0.6,0.0,0.0,0.4
+16,Robotic Process Automation,0.3,0.0,0.0,0.7,0.0,0.0,0.0,0.0
+17,Explainable AI in Healthcare,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+18,Distributed Database Systems,0.4,0.0,0.0,0.0,0.0,0.6,0.0,0.0
+19,Cryptography and Blockchain,0.6,0.0,0.0,0.0,0.0,0.0,0.4,0.0
+20,Web Search and PageRank,0.5,0.0,0.0,0.0,0.5,0.0,0.0,0.0

@@ -7,7 +7,7 @@ The goal of this project is to build a Python package to perform optimal reviewe
 ## Input Data Elements
 The system reads the following files:
 * **Affiliations**: A CSV containing tiles like `paper_id`, `title`, and multiple authors and affiliations encoded `author_<number>`, and `affiliations_<number>`.
-* **Reviewer Expertise**: A CSV containing reviewer names broken into two columns (`Firstname` and `Lastname`) and their rated expertise scores (from 0 to 10) in various sub-committee areas.
+* **Reviewer Expertise**: A CSV containing reviewer names (`Firstname`, `Lastname`), an optional `Affiliation` column (ignored for matrix operations), and rated expertise scores (from 0 to 10) in sub-committee areas.
 * **Paper Area**: A CSV containing paper IDs and their relevance scores (from 0 to 10) in the same set of areas.
 * **Must-review**: A sparse CSV containing forced assignments of reviewers (denoted by `1`).
 * **Conflict of Interest (COI)**: A sparse CSV listing conflicts where a reviewer cannot review a paper (denoted by `1`).
@@ -18,7 +18,8 @@ The system reads the following files:
 2. **Load & Validate**:
    * Assures that all scores are numeric and strictly in the `[0, 10]` range.
    * Assures reviewer and paper counts match the configuration.
-   * Parses reviewer names by combining `Firstname` and `Lastname`.
+   * Uses Pandas to combine `Firstname` and `Lastname` into `"Firstname Lastname"` format for all reviewer IDs.
+   * Automatically ignores metadata columns such as `Affiliation` when constructing the expertise score matrix.
    * Assures areas match and align, and checks that must-review and COI files do not contain unrecognized IDs.
    * Assures workload constraints are mathematically feasible before starting:
      $$\text{num\_reviewers} \times \text{max\_reviews\_per\_reviewer} \ge \text{num\_papers} \times \text{min\_reviews\_per\_paper}$$

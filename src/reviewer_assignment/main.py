@@ -6,7 +6,6 @@ import os
 import sys
 import pandas as pd
 from .config import Config
-from .scrubber import AffiliationScrubber
 from .data_structures import ReviewerAssignmentProblem
 from .solver import ReviewerAssignmentSolver
 from .reporter import ReviewerAssignmentReporter
@@ -70,25 +69,20 @@ def main():
 
     # 2. Determine output paths (CLI overrides config values)
     def resolve_output_path(cli_override, config_key, default_name):
-        if cli_override:
-            return Path(cli_override)
-        config_val = config.files.get(config_key, default_name)
-        val_path = Path(config_val)
+        raw_val = cli_override if cli_override else config.files.get(config_key, default_name)
+        val_path = Path(raw_val)
         if val_path.is_absolute():
             return val_path
         out_dir = Path(config.output_files_dir)
-        try:
-            val_path.relative_to(out_dir)
-            return val_path
-        except ValueError:
-            return out_dir / val_path
+        if val_path.parts and val_path.parts[0] == out_dir.name:
+            val_path = Path(*val_path.parts[1:])
+        return out_dir / val_path
 
-    paper_id_and_affiliations = resolve_output_path(args.scrub_output, "paper_id_and_affiliations", "paper_id_and_affiliations.csv")
-    assignment_output = resolve_output_path(args.assignment_output, "assignment_output", "assignments.csv")
-    matching_output = resolve_output_path(args.matching_output, "reviewer_paper_match_scores", "intermediate_data/reviewer_matching.csv")
+    assignment_output = resolve_output_path(args.assignment_output, "assignment_output", "paper_assignment.csv")
+    matching_output = resolve_output_path(args.matching_output, "reviewer_paper_match_scores", "intermediate_data/reviewer_paper_match_score.csv")
     matrix_output = resolve_output_path(args.matrix_output, "reviewer_assignment_matrix", "reviewer_assignment_matrix.csv")
     if not args.matrix_output and "reviewer_assignment_matrix" not in config.files and "assignment_matrix" in config.files:
-        matrix_output = resolve_output_path(args.matrix_output, "assignment_matrix", "assignment_matrix.csv")
+        matrix_output = resolve_output_path(args.matrix_output, "assignment_matrix", "reviewer_assignment_matrix.csv")
 
     champ_matrix_output = resolve_output_path(args.champ_matrix_output, "champ_assignment_matrix", "champ_assignment_matrix.csv")
     cochamp_matrix_output = resolve_output_path(args.cochamp_matrix_output, "cochamp_assignment_matrix", "cochamp_assignment_matrix.csv")
@@ -99,28 +93,11 @@ def main():
     # Create directories for outputs
     os.makedirs(config.output_files_dir, exist_ok=True)
     os.makedirs(report_dir, exist_ok=True)
-    for path in [paper_id_and_affiliations, assignment_output, matching_output, matrix_output, champ_matrix_output, cochamp_matrix_output, vector_output]:
+    for path in [assignment_output, matching_output, matrix_output, champ_matrix_output, cochamp_matrix_output, vector_output]:
         if path.parent:
             os.makedirs(path.parent, exist_ok=True)
 
-    # 3. Scrub affiliations
-    affiliations_file = config.input_files_dir / Path(config.files.get("affiliations"))
-    if not affiliations_file or not os.path.exists(affiliations_file):
-        print(
-            f"Error: Affiliations input file not found at {affiliations_file}",
-            file=sys.stderr,
-        )
-        sys.exit(1)
-
-    print("Scrubbing affiliations...")
-    try:
-        AffiliationScrubber.scrub(affiliations_file, paper_id_and_affiliations)
-        print(f"Successfully scrubbed affiliations. Output saved to {paper_id_and_affiliations}")
-    except Exception as e:
-        print(f"Error scrubbing affiliations: {e}", file=sys.stderr)
-        sys.exit(1)
-
-    # 4. Load problem matrices
+    # 3. Load problem matrices
     print("Loading data files and aligning matrices...")
     try:
         problem = ReviewerAssignmentProblem.load(config)

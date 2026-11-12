@@ -161,6 +161,18 @@ class ReviewerAssignmentProblem:
             else:
                 df_p_area = df_tech.copy()
 
+            # Drop trailing/unnamed columns that commonly appear from Excel exports
+            df_p_area = df_p_area.loc[:, ~df_p_area.columns.astype(str).str.contains(r'^Unnamed', case=False)]
+
+            # Normalize common area name variations (e.g. Powermanagement -> Pwrmgmt)
+            area_synonyms = {
+                "powermanagement": "Pwrmgmt",
+                "power management": "Pwrmgmt",
+            }
+            rename_map = {col: "Pwrmgmt" for col in df_p_area.columns if str(col).strip().lower() in area_synonyms and "Pwrmgmt" in areas}
+            if rename_map:
+                df_p_area = df_p_area.rename(columns=rename_map)
+
             # Ensure paper ID column is named 'paper_id'
             if pid_col != "paper_id":
                 df_p_area = df_p_area.rename(columns={pid_col: "paper_id"})
@@ -211,8 +223,8 @@ class ReviewerAssignmentProblem:
                 + "\n".join(details)
             )
 
-        # Align columns to match the reviewer expertise areas ordering.
-        matrix_p_area = df_p_area[areas].apply(pd.to_numeric).to_numpy()
+        # Align columns to match the reviewer expertise areas ordering, filling blank cells with 0.
+        matrix_p_area = df_p_area[areas].apply(pd.to_numeric).fillna(0).to_numpy()
 
         # Check bounds: paper relevance scores must be in [0, 10]
         if not np.all((matrix_p_area >= 0) & (matrix_p_area <= 10)):

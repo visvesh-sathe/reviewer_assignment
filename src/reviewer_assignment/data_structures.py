@@ -166,11 +166,12 @@ class ReviewerAssignmentProblem:
                 df_p_area = df_p_area.rename(columns={pid_col: "paper_id"})
                 pid_col = "paper_id"
 
-            # Save pruned paperID_areas.csv into intermediate_data
+            # Save pruned paperID_areas.csv into intermediate_data or intermediate_files
             paper_id_areas_out = config.files.get("paperID_areas", "intermediate_data/paperID_areas.csv")
             paper_id_areas_path = Path(paper_id_areas_out)
-            if not paper_id_areas_path.is_absolute() and not str(paper_id_areas_path).startswith(config.output_files_dir):
-                paper_id_areas_path = Path(config.output_files_dir) / paper_id_areas_path
+            if not paper_id_areas_path.is_absolute():
+                if not any(part in ["intermediate_files", "intermediate_data", "output_files"] for part in paper_id_areas_path.parts):
+                    paper_id_areas_path = Path(config.output_files_dir) / paper_id_areas_path
 
             os.makedirs(paper_id_areas_path.parent, exist_ok=True)
             df_p_area.to_csv(paper_id_areas_path, index=False)

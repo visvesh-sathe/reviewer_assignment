@@ -98,6 +98,9 @@ def assign_reviewers(
         val_path = Path(raw_val)
         if val_path.is_absolute():
             return val_path
+        # Respect paths explicitly targeting intermediate directories
+        if val_path.parts and val_path.parts[0] in ["intermediate_files", "intermediate_data"]:
+            return val_path
         out_dir = Path(config.output_files_dir)
         if val_path.parts and val_path.parts[0] == out_dir.name:
             val_path = Path(*val_path.parts[1:])

@@ -28,7 +28,7 @@ Click the badge above or use the interactive notebook located at [`coi_gen_and_r
 ### 1. Prerequisites
 Install the required dependencies:
 ```bash
-python3 -m pip install pulp pyyaml pandas matplotlib
+python3 -m pip install "pulp>=2.8,<4.0" pyyaml pandas matplotlib
 ```
 
 ### 2. Standalone Wrapper Flow (Simple)

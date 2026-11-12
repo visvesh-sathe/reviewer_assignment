@@ -28,11 +28,11 @@ class ReviewerAssignmentSolver:
         num_papers = self.problem.config.num_papers
 
         # Decision variables: x[r, p] = 1 if reviewer r is assigned to paper p, 0 otherwise.
-        x = pulp.LpVariable.dicts(
-            "assign",
-            ((r, p) for r in range(num_reviewers) for p in range(num_papers)),
-            cat=pulp.LpBinary,
-        )
+        x = {
+            (r, p): pulp.LpVariable(f"assign_{r}_{p}", cat=pulp.LpBinary)
+            for r in range(num_reviewers)
+            for p in range(num_papers)
+        }
 
         # Compute matching matrix (reviewer_expertise * paper_area^T)
         matching_matrix = self.problem.compute_matching_matrix()
@@ -110,11 +110,11 @@ class ReviewerAssignmentSolver:
         num_papers = self.problem.config.num_papers
 
         # Decision variables: y[r, p] = 1 if reviewer r is champion for paper p, 0 otherwise.
-        y = pulp.LpVariable.dicts(
-            "champion",
-            ((r, p) for r in range(num_reviewers) for p in range(num_papers)),
-            cat=pulp.LpBinary,
-        )
+        y = {
+            (r, p): pulp.LpVariable(f"champion_{r}_{p}", cat=pulp.LpBinary)
+            for r in range(num_reviewers)
+            for p in range(num_papers)
+        }
 
         # Compute matching matrix (reviewer_expertise * paper_area^T)
         matching_matrix = self.problem.compute_matching_matrix()
@@ -235,11 +235,11 @@ class ReviewerAssignmentSolver:
         num_papers = self.problem.config.num_papers
 
         # Decision variables: z[r, p] = 1 if reviewer r is co-champion for paper p, 0 otherwise.
-        z = pulp.LpVariable.dicts(
-            "cochampion",
-            ((r, p) for r in range(num_reviewers) for p in range(num_papers)),
-            cat=pulp.LpBinary,
-        )
+        z = {
+            (r, p): pulp.LpVariable(f"cochampion_{r}_{p}", cat=pulp.LpBinary)
+            for r in range(num_reviewers)
+            for p in range(num_papers)
+        }
 
         # Compute matching matrix (reviewer_expertise * paper_area^T)
         matching_matrix = self.problem.compute_matching_matrix()

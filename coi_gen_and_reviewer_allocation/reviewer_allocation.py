@@ -17,6 +17,21 @@ if str(repo_root / "src") not in sys.path:
 if str(repo_root / ".agents") not in sys.path:
     sys.path.insert(0, str(repo_root / ".agents"))
 
+# Self-healing: Ensure PuLP is compatible (< 4.0) with bundled CBC solver
+try:
+    import pulp
+    pulp_ver = getattr(pulp, "__version__", "0.0.0")
+    major_ver = int(pulp_ver.split(".")[0]) if pulp_ver and pulp_ver[0].isdigit() else 3
+    if major_ver >= 4 or not hasattr(pulp, "PULP_CBC_CMD"):
+        print(f"⚠️ Detected PuLP {pulp_ver} (PuLP 4.x removed bundled CBC solver and legacy APIs).")
+        print("🔧 Auto-installing compatible PuLP 3.x release ('pulp>=2.8,<4.0')...")
+        import subprocess
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "-q", "pulp>=2.8,<4.0"])
+        print("✅ PuLP downgraded to compatible version. Re-executing script...\n")
+        os.execv(sys.executable, [sys.executable] + sys.argv)
+except Exception as e:
+    pass
+
 from assign_reviewers import assign_reviewers
 
 def main():

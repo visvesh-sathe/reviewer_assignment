@@ -20,45 +20,45 @@ Role Distribution per Reviewer:
   - Yoonmyung Lee: Total=16, Champ=0, Co-Champ=0, Regular=16
   - Behnam Amelifard: Total=17, Champ=5, Co-Champ=5, Regular=7
   - Ningyuan Cao: Total=17, Champ=5, Co-Champ=5, Regular=7
-  - Muya Chang  : Total=15, Champ=2, Co-Champ=2, Regular=11
+  - Muya Chang  : Total=15, Champ=4, Co-Champ=4, Regular=7
   - Gregory Chen: Total=15, Champ=5, Co-Champ=5, Regular=5
-  - Sumanth Kamineni: Total=15, Champ=2, Co-Champ=1, Regular=12
-  - Kyuho Lee   : Total=15, Champ=3, Co-Champ=5, Regular=7
-  - Sukhan Lee  : Total=15, Champ=5, Co-Champ=5, Regular=5
-  - Ashwin Lele : Total=15, Champ=5, Co-Champ=5, Regular=5
+  - Sumanth Kamineni: Total=15, Champ=4, Co-Champ=4, Regular=7
+  - Kyuho Lee   : Total=15, Champ=4, Co-Champ=4, Regular=7
+  - Sukhan Lee  : Total=15, Champ=4, Co-Champ=4, Regular=7
+  - Ashwin Lele : Total=15, Champ=4, Co-Champ=4, Regular=7
   - Yimai Peng  : Total=17, Champ=5, Co-Champ=5, Regular=7
   - Weiwei Shan : Total=17, Champ=5, Co-Champ=5, Regular=7
-  - Jong-Hyeok Yoon: Total=15, Champ=5, Co-Champ=5, Regular=5
-  - Kyungmi Lee : Total=15, Champ=5, Co-Champ=4, Regular=6
+  - Jong-Hyeok Yoon: Total=15, Champ=4, Co-Champ=4, Regular=7
+  - Kyungmi Lee : Total=15, Champ=4, Co-Champ=4, Regular=7
   - Hechen Wang : Total=17, Champ=5, Co-Champ=5, Regular=7
-  - Aoyang Zhang: Total=15, Champ=5, Co-Champ=5, Regular=5
+  - Aoyang Zhang: Total=15, Champ=4, Co-Champ=4, Regular=7
   - Po-Tsang Huang: Total=17, Champ=5, Co-Champ=5, Regular=7
 
 Paper Assignments Details:
-  - Paper 6  : Champ=Kyungmi Lee  | Co-Champ=Ashwin Lele  | Other Reviewers=['Shanshan Xie', 'Muya Chang']
-  - Paper 18 : Champ=Jong-Hyeok Yoon | Co-Champ=Behnam Amelifard | Other Reviewers=['Sumanth Kamineni', 'Yimai Peng']
-  - Paper 27 : Champ=Gregory Chen | Co-Champ=Sukhan Lee   | Other Reviewers=['Ningyuan Cao', 'Kyuho Lee']
-  - Paper 31 : Champ=Kyungmi Lee  | Co-Champ=Ningyuan Cao | Other Reviewers=['Muya Chang', 'Sumanth Kamineni']
+  - Paper 6  : Champ=Muya Chang   | Co-Champ=Kyungmi Lee  | Other Reviewers=['Shanshan Xie', 'Ashwin Lele']
+  - Paper 18 : Champ=Jong-Hyeok Yoon | Co-Champ=Sumanth Kamineni | Other Reviewers=['Behnam Amelifard', 'Yimai Peng']
+  - Paper 27 : Champ=Kyuho Lee    | Co-Champ=Gregory Chen | Other Reviewers=['Ningyuan Cao', 'Sukhan Lee']
+  - Paper 31 : Champ=Kyungmi Lee  | Co-Champ=Sumanth Kamineni | Other Reviewers=['Ningyuan Cao', 'Muya Chang']
   - Paper 32 : Champ=Ashwin Lele  | Co-Champ=Yimai Peng   | Other Reviewers=['Yoonmyung Lee', 'Hechen Wang']
   - Paper 34 : Champ=Jong-Hyeok Yoon | Co-Champ=Ashwin Lele  | Other Reviewers=['Sumanth Kamineni', 'Kyuho Lee']
   - Paper 57 : Champ=Weiwei Shan  | Co-Champ=Behnam Amelifard | Other Reviewers=['Yimai Peng', 'Po-Tsang Huang']
   - Paper 60 : Champ=Weiwei Shan  | Co-Champ=Po-Tsang Huang | Other Reviewers=['Behnam Amelifard', 'Ningyuan Cao']
   - Paper 68 : Champ=Aoyang Zhang | Co-Champ=Hechen Wang  | Other Reviewers=['Shanshan Xie', 'Yoonmyung Lee']
   - Paper 88 : Champ=Ningyuan Cao | Co-Champ=Po-Tsang Huang | Other Reviewers=['Behnam Amelifard', 'Jong-Hyeok Yoon']
-  - Paper 114: Champ=Kyuho Lee    | Co-Champ=Kyungmi Lee  | Other Reviewers=['Muya Chang', 'Gregory Chen']
+  - Paper 114: Champ=Muya Chang   | Co-Champ=Kyuho Lee    | Other Reviewers=['Gregory Chen', 'Kyungmi Lee']
   - Paper 117: Champ=Sukhan Lee   | Co-Champ=Kyuho Lee    | Other Reviewers=['Muya Chang', 'Yimai Peng']
   - Paper 144: Champ=Gregory Chen | Co-Champ=Yimai Peng   | Other Reviewers=['Behnam Amelifard', 'Ashwin Lele']
   - Paper 151: Champ=Aoyang Zhang | Co-Champ=Gregory Chen | Other Reviewers=['Shanshan Xie', 'Yoonmyung Lee']
   - Paper 168: Champ=Yimai Peng   | Co-Champ=Weiwei Shan  | Other Reviewers=['Yoonmyung Lee', 'Behnam Amelifard']
-  - Paper 177: Champ=Jong-Hyeok Yoon | Co-Champ=Kyuho Lee    | Other Reviewers=['Shanshan Xie', 'Sumanth Kamineni']
-  - Paper 191: Champ=Jong-Hyeok Yoon | Co-Champ=Kyuho Lee    | Other Reviewers=['Sumanth Kamineni', 'Aoyang Zhang']
+  - Paper 177: Champ=Jong-Hyeok Yoon | Co-Champ=Sumanth Kamineni | Other Reviewers=['Shanshan Xie', 'Kyuho Lee']
+  - Paper 191: Champ=Sumanth Kamineni | Co-Champ=Jong-Hyeok Yoon | Other Reviewers=['Kyuho Lee', 'Aoyang Zhang']
   - Paper 210: Champ=Weiwei Shan  | Co-Champ=Po-Tsang Huang | Other Reviewers=['Kyuho Lee', 'Hechen Wang']
   - Paper 215: Champ=Aoyang Zhang | Co-Champ=Hechen Wang  | Other Reviewers=['Shanshan Xie', 'Yoonmyung Lee']
   - Paper 219: Champ=Sukhan Lee   | Co-Champ=Kyuho Lee    | Other Reviewers=['Sumanth Kamineni', 'Kyungmi Lee']
-  - Paper 224: Champ=Behnam Amelifard | Co-Champ=Jong-Hyeok Yoon | Other Reviewers=['Ningyuan Cao', 'Po-Tsang Huang']
-  - Paper 239: Champ=Yimai Peng   | Co-Champ=Behnam Amelifard | Other Reviewers=['Ningyuan Cao', 'Weiwei Shan']
+  - Paper 224: Champ=Behnam Amelifard | Co-Champ=Ningyuan Cao | Other Reviewers=['Jong-Hyeok Yoon', 'Po-Tsang Huang']
+  - Paper 239: Champ=Behnam Amelifard | Co-Champ=Yimai Peng   | Other Reviewers=['Ningyuan Cao', 'Weiwei Shan']
   - Paper 259: Champ=Gregory Chen | Co-Champ=Kyungmi Lee  | Other Reviewers=['Muya Chang', 'Sumanth Kamineni']
-  - Paper 272: Champ=Hechen Wang  | Co-Champ=Aoyang Zhang | Other Reviewers=['Shanshan Xie', 'Jong-Hyeok Yoon']
+  - Paper 272: Champ=Hechen Wang  | Co-Champ=Jong-Hyeok Yoon | Other Reviewers=['Shanshan Xie', 'Aoyang Zhang']
   - Paper 274: Champ=Yimai Peng   | Co-Champ=Weiwei Shan  | Other Reviewers=['Yoonmyung Lee', 'Hechen Wang']
   - Paper 294: Champ=Kyuho Lee    | Co-Champ=Sukhan Lee   | Other Reviewers=['Shanshan Xie', 'Muya Chang']
   - Paper 297: Champ=Hechen Wang  | Co-Champ=Kyuho Lee    | Other Reviewers=['Shanshan Xie', 'Yoonmyung Lee']
@@ -66,40 +66,40 @@ Paper Assignments Details:
   - Paper 325: Champ=Po-Tsang Huang | Co-Champ=Ningyuan Cao | Other Reviewers=['Weiwei Shan', 'Aoyang Zhang']
   - Paper 326: Champ=Muya Chang   | Co-Champ=Sukhan Lee   | Other Reviewers=['Ashwin Lele', 'Kyungmi Lee']
   - Paper 327: Champ=Po-Tsang Huang | Co-Champ=Weiwei Shan  | Other Reviewers=['Kyuho Lee', 'Hechen Wang']
-  - Paper 328: Champ=Kyungmi Lee  | Co-Champ=Sumanth Kamineni | Other Reviewers=['Muya Chang', 'Kyuho Lee']
+  - Paper 328: Champ=Sumanth Kamineni | Co-Champ=Kyungmi Lee  | Other Reviewers=['Muya Chang', 'Kyuho Lee']
   - Paper 333: Champ=Po-Tsang Huang | Co-Champ=Hechen Wang  | Other Reviewers=['Sukhan Lee', 'Ashwin Lele']
   - Paper 335: Champ=Sukhan Lee   | Co-Champ=Muya Chang   | Other Reviewers=['Shanshan Xie', 'Aoyang Zhang']
   - Paper 339: Champ=Ashwin Lele  | Co-Champ=Yimai Peng   | Other Reviewers=['Gregory Chen', 'Kyungmi Lee']
-  - Paper 354: Champ=Ningyuan Cao | Co-Champ=Behnam Amelifard | Other Reviewers=['Weiwei Shan', 'Po-Tsang Huang']
+  - Paper 354: Champ=Ningyuan Cao | Co-Champ=Weiwei Shan  | Other Reviewers=['Behnam Amelifard', 'Po-Tsang Huang']
   - Paper 358: Champ=Ashwin Lele  | Co-Champ=Ningyuan Cao | Other Reviewers=['Sumanth Kamineni', 'Jong-Hyeok Yoon']
   - Paper 359: Champ=Yimai Peng   | Co-Champ=Po-Tsang Huang | Other Reviewers=['Behnam Amelifard', 'Weiwei Shan']
   - Paper 378: Champ=Behnam Amelifard | Co-Champ=Jong-Hyeok Yoon | Other Reviewers=['Yoonmyung Lee', 'Yimai Peng']
   - Paper 408: Champ=Weiwei Shan  | Co-Champ=Po-Tsang Huang | Other Reviewers=['Yimai Peng', 'Hechen Wang']
   - Paper 418: Champ=Kyuho Lee    | Co-Champ=Hechen Wang  | Other Reviewers=['Yoonmyung Lee', 'Weiwei Shan']
   - Paper 439: Champ=Sumanth Kamineni | Co-Champ=Ningyuan Cao | Other Reviewers=['Weiwei Shan', 'Kyungmi Lee']
-  - Paper 441: Champ=Ashwin Lele  | Co-Champ=Jong-Hyeok Yoon | Other Reviewers=['Gregory Chen', 'Po-Tsang Huang']
-  - Paper 449: Champ=Ningyuan Cao | Co-Champ=Ashwin Lele  | Other Reviewers=['Behnam Amelifard', 'Yimai Peng']
+  - Paper 441: Champ=Gregory Chen | Co-Champ=Ashwin Lele  | Other Reviewers=['Jong-Hyeok Yoon', 'Po-Tsang Huang']
+  - Paper 449: Champ=Ningyuan Cao | Co-Champ=Behnam Amelifard | Other Reviewers=['Ashwin Lele', 'Yimai Peng']
   - Paper 456: Champ=Jong-Hyeok Yoon | Co-Champ=Aoyang Zhang | Other Reviewers=['Shanshan Xie', 'Yoonmyung Lee']
   - Paper 469: Champ=Hechen Wang  | Co-Champ=Jong-Hyeok Yoon | Other Reviewers=['Yoonmyung Lee', 'Aoyang Zhang']
   - Paper 474: Champ=Ningyuan Cao | Co-Champ=Aoyang Zhang | Other Reviewers=['Shanshan Xie', 'Hechen Wang']
   - Paper 483: Champ=Po-Tsang Huang | Co-Champ=Ashwin Lele  | Other Reviewers=['Ningyuan Cao', 'Sukhan Lee']
-  - Paper 485: Champ=Behnam Amelifard | Co-Champ=Gregory Chen | Other Reviewers=['Weiwei Shan', 'Po-Tsang Huang']
+  - Paper 485: Champ=Gregory Chen | Co-Champ=Behnam Amelifard | Other Reviewers=['Weiwei Shan', 'Po-Tsang Huang']
   - Paper 492: Champ=Gregory Chen | Co-Champ=Yimai Peng   | Other Reviewers=['Sukhan Lee', 'Ashwin Lele']
   - Paper 499: Champ=Ashwin Lele  | Co-Champ=Sukhan Lee   | Other Reviewers=['Gregory Chen', 'Jong-Hyeok Yoon']
   - Paper 509: Champ=Hechen Wang  | Co-Champ=Aoyang Zhang | Other Reviewers=['Yoonmyung Lee', 'Yimai Peng']
-  - Paper 537: Champ=Kyungmi Lee  | Co-Champ=Gregory Chen | Other Reviewers=['Muya Chang', 'Sumanth Kamineni']
+  - Paper 537: Champ=Kyungmi Lee  | Co-Champ=Muya Chang   | Other Reviewers=['Gregory Chen', 'Sumanth Kamineni']
   - Paper 561: Champ=Muya Chang   | Co-Champ=Sukhan Lee   | Other Reviewers=['Sumanth Kamineni', 'Kyungmi Lee']
-  - Paper 568: Champ=Aoyang Zhang | Co-Champ=Yimai Peng   | Other Reviewers=['Shanshan Xie', 'Yoonmyung Lee']
+  - Paper 568: Champ=Yimai Peng   | Co-Champ=Aoyang Zhang | Other Reviewers=['Shanshan Xie', 'Yoonmyung Lee']
   - Paper 577: Champ=Sukhan Lee   | Co-Champ=Kyungmi Lee  | Other Reviewers=['Ningyuan Cao', 'Muya Chang']
   - Paper 581: Champ=Weiwei Shan  | Co-Champ=Behnam Amelifard | Other Reviewers=['Yoonmyung Lee', 'Hechen Wang']
   - Paper 582: Champ=Behnam Amelifard | Co-Champ=Gregory Chen | Other Reviewers=['Sukhan Lee', 'Po-Tsang Huang']
-  - Paper 602: Champ=Sumanth Kamineni | Co-Champ=Aoyang Zhang | Other Reviewers=['Shanshan Xie', 'Ningyuan Cao']
-  - Paper 606: Champ=Sukhan Lee   | Co-Champ=Kyungmi Lee  | Other Reviewers=['Muya Chang', 'Sumanth Kamineni']
+  - Paper 602: Champ=Sumanth Kamineni | Co-Champ=Ningyuan Cao | Other Reviewers=['Shanshan Xie', 'Aoyang Zhang']
+  - Paper 606: Champ=Kyungmi Lee  | Co-Champ=Sumanth Kamineni | Other Reviewers=['Muya Chang', 'Sukhan Lee']
   - Paper 609: Champ=Hechen Wang  | Co-Champ=Muya Chang   | Other Reviewers=['Shanshan Xie', 'Aoyang Zhang']
-  - Paper 617: Champ=Behnam Amelifard | Co-Champ=Ningyuan Cao | Other Reviewers=['Gregory Chen', 'Kyungmi Lee']
+  - Paper 617: Champ=Behnam Amelifard | Co-Champ=Gregory Chen | Other Reviewers=['Ningyuan Cao', 'Kyungmi Lee']
   - Paper 629: Champ=Kyungmi Lee  | Co-Champ=Gregory Chen | Other Reviewers=['Sumanth Kamineni', 'Ashwin Lele']
-  - Paper 637: Champ=Yimai Peng   | Co-Champ=Weiwei Shan  | Other Reviewers=['Muya Chang', 'Kyuho Lee']
-  - Paper 654: Champ=Gregory Chen | Co-Champ=Ashwin Lele  | Other Reviewers=['Kyuho Lee', 'Sukhan Lee']
-  - Paper 663: Champ=Ningyuan Cao | Co-Champ=Jong-Hyeok Yoon | Other Reviewers=['Behnam Amelifard', 'Po-Tsang Huang']
+  - Paper 637: Champ=Yimai Peng   | Co-Champ=Muya Chang   | Other Reviewers=['Kyuho Lee', 'Weiwei Shan']
+  - Paper 654: Champ=Kyuho Lee    | Co-Champ=Ashwin Lele  | Other Reviewers=['Gregory Chen', 'Sukhan Lee']
+  - Paper 663: Champ=Ningyuan Cao | Co-Champ=Behnam Amelifard | Other Reviewers=['Jong-Hyeok Yoon', 'Po-Tsang Huang']
   - Paper 670: Champ=Po-Tsang Huang | Co-Champ=Hechen Wang  | Other Reviewers=['Yoonmyung Lee', 'Jong-Hyeok Yoon']
 ===========================================

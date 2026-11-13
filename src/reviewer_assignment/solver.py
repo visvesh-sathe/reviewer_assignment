@@ -148,8 +148,14 @@ class ReviewerAssignmentSolver:
             prob += pulp.lpSum(y[r, p] for r in range(num_reviewers)) == 1
 
         # 3. Champion workload constraints
-        max_champ = math.ceil(num_papers / num_reviewers) + 1
-        min_champ = max(0, math.floor(num_papers / num_reviewers) - 1)
+        eligible_reviewers = [
+            r
+            for r in range(num_reviewers)
+            if self.problem.reviewer_expertise.reviewer_ids[r] not in (chair, cochair)
+        ]
+        num_eligible = len(eligible_reviewers) if eligible_reviewers else num_reviewers
+        min_champ = math.floor(num_papers / num_eligible)
+        max_champ = min_champ + 1
         for r in range(num_reviewers):
             r_id = self.problem.reviewer_expertise.reviewer_ids[r]
             if r_id == chair or r_id == cochair:
@@ -274,12 +280,20 @@ class ReviewerAssignmentSolver:
             prob += pulp.lpSum(z[r, p] for r in range(num_reviewers)) == 1
 
         # 3. Co-champion workload constraints
-        max_cochamp = math.ceil(num_papers / num_reviewers) + 1
+        eligible_reviewers = [
+            r
+            for r in range(num_reviewers)
+            if self.problem.reviewer_expertise.reviewer_ids[r] not in (chair, cochair)
+        ]
+        num_eligible = len(eligible_reviewers) if eligible_reviewers else num_reviewers
+        min_cochamp = math.floor(num_papers / num_eligible)
+        max_cochamp = min_cochamp + 1
         for r in range(num_reviewers):
             r_id = self.problem.reviewer_expertise.reviewer_ids[r]
             if r_id == chair or r_id == cochair:
                 prob += pulp.lpSum(z[r, p] for p in range(num_papers)) == 0
             else:
+                prob += pulp.lpSum(z[r, p] for p in range(num_papers)) >= min_cochamp
                 prob += pulp.lpSum(z[r, p] for p in range(num_papers)) <= max_cochamp
 
         # Solve the model
@@ -314,9 +328,9 @@ class ReviewerAssignmentSolver:
                         f"Chair/Co-chair {r_id} co-champion workload is {workload}, expected 0."
                     )
             else:
-                if workload > max_cochamp:
+                if workload > max_cochamp or workload < min_cochamp:
                     raise ValueError(
-                        f"Reviewer {r_id} co-champion workload is {workload}, exceeds maximum {max_cochamp}."
+                        f"Reviewer {r_id} co-champion workload is {workload}, out of bounds [{min_cochamp}, {max_cochamp}]."
                     )
 
         for r in range(num_reviewers):

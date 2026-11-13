@@ -48,6 +48,22 @@ def main():
         default=None,
         help="Optional override for max extra reviews per reviewer above minimum baseline",
     )
+    parser.add_argument(
+        "--reviews-per-paper",
+        type=int,
+        default=None,
+        help="Optional override for number of reviews required per paper (default: loaded from config YAML)",
+    )
+    parser.add_argument(
+        "--excel-template",
+        default="input_files/cfg_assignment_sheet_deliverable_template.xls",
+        help="Path to assignment sheet deliverable template (default: input_files/cfg_assignment_sheet_deliverable_template.xls)",
+    )
+    parser.add_argument(
+        "--excel-output",
+        default="output_files/final_reviewer_assignment_sheet.xls",
+        help="Path to final filled assignment spreadsheet (default: output_files/final_reviewer_assignment_sheet.xls)",
+    )
     args = parser.parse_args()
 
     print("=====================================================")
@@ -74,6 +90,9 @@ def main():
             vector_output="output_files/assignment_vector.csv",
             report_dir="output_files",
             max_extra_reviews=args.max_extra_reviews,
+            reviews_per_paper=args.reviews_per_paper,
+            excel_template=args.excel_template,
+            excel_output=args.excel_output,
         )
         print("\n=====================================================")
         print("SUCCESS: Reviewer allocation complete.")

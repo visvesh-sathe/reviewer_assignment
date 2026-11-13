@@ -58,6 +58,9 @@ def assign_reviewers(
     vector_output: Optional[str] = None,
     report_dir: Optional[str] = None,
     max_extra_reviews: Optional[int] = None,
+    reviews_per_paper: Optional[int] = None,
+    excel_template: Optional[str] = None,
+    excel_output: Optional[str] = None,
 ) -> Dict[str, Any]:
     """Caller function to run the reviewer assignment optimization workflow.
 
@@ -72,6 +75,9 @@ def assign_reviewers(
         vector_output: Optional override for assignment vector CSV output path.
         report_dir: Optional override for report output directory.
         max_extra_reviews: Optional override for maximum reviews per reviewer above baseline minimum.
+        reviews_per_paper: Optional override for number of reviews required per paper.
+        excel_template: Optional path to deliverable Excel template file.
+        excel_output: Optional path to final filled deliverable Excel output file.
 
     Returns:
         A dictionary with problem, solver results, objective values, and output file paths.
@@ -83,8 +89,15 @@ def assign_reviewers(
     print(f"Loading configuration from {resolved_config}...")
     config = Config.from_yaml(str(resolved_config))
 
+    import math
+    if reviews_per_paper is not None:
+        config.reviews_per_paper = int(reviews_per_paper)
+        config.min_reviews_per_paper = int(reviews_per_paper)
     if max_extra_reviews is not None:
         config.max_extra_reviews = int(max_extra_reviews)
+
+    if reviews_per_paper is not None or max_extra_reviews is not None:
+        config.min_reviews_per_reviewer = math.floor((config.num_papers * config.reviews_per_paper) / config.num_reviewers)
         config.max_reviews_per_reviewer = config.min_reviews_per_reviewer + config.max_extra_reviews
         config.validate()
 
@@ -211,6 +224,64 @@ def assign_reviewers(
     text_report_path = reporter.save_text_report(resolved_report_dir)
     reporter.save_plots(resolved_report_dir)
 
+    # Generate final reviewer assignment deliverable Excel sheet if template is present
+    template_to_use = None
+    if excel_template:
+        t_path = resolve_path(excel_template)
+        if t_path.exists():
+            template_to_use = t_path
+    else:
+        # Search candidate locations for deliverable template
+        candidates = [
+            Path(config.input_files_dir) / "cfg_assignment_sheet_deliverable_template.xls",
+            PROJECT_ROOT / "coi_gen_and_reviewer_allocation" / "input_files" / "cfg_assignment_sheet_deliverable_template.xls",
+            PROJECT_ROOT / "input_files" / "cfg_assignment_sheet_deliverable_template.xls",
+        ]
+        for cand in candidates:
+            if cand.exists():
+                template_to_use = cand
+                break
+
+    excel_file_path = None
+    if template_to_use:
+        target_excel_out = Path(excel_output) if excel_output else Path(config.output_files_dir) / "final_reviewer_assignment_sheet.xls"
+        if not target_excel_out.is_absolute() and not target_excel_out.parent.exists():
+            target_excel_out = Path(config.output_files_dir) / target_excel_out.name
+
+        # Resolve paper info
+        paper_info_name = config.files.get("affiliations", "cfg_paper_info.csv")
+        paper_info_candidates = [
+            Path(config.input_files_dir) / paper_info_name,
+            Path(config.input_files_dir) / "cfg_paper_info.csv",
+            Path(config.input_files_dir) / "cicc_paper_info.csv",
+            Path(config.input_files_dir) / "paper_info.csv",
+            PROJECT_ROOT / "coi_gen_and_reviewer_allocation" / "input_files" / "cfg_paper_info.csv",
+        ]
+        resolved_paper_info = None
+        for p_cand in paper_info_candidates:
+            if p_cand.exists():
+                resolved_paper_info = p_cand
+                break
+
+        print("\nGenerating final reviewer assignment deliverable spreadsheet...")
+        excel_file_path = reporter.save_excel_deliverable(
+            template_path=str(template_to_use),
+            output_path=str(target_excel_out),
+            paper_info_path=str(resolved_paper_info) if resolved_paper_info else None,
+        )
+
+    out_files_dict = {
+        "assignments": str(assignment_out_path),
+        "assignment_matrix": str(matrix_out_path),
+        "champ_matrix": str(champ_out_path),
+        "cochamp_matrix": str(cochamp_out_path),
+        "assignment_vector": str(vector_out_path),
+        "matching_scores": str(matching_out_path),
+        "text_report": str(text_report_path),
+    }
+    if excel_file_path:
+        out_files_dict["final_reviewer_assignment_sheet"] = str(excel_file_path)
+
     return {
         "problem": problem,
         "assignment_matrix": assignment_matrix,
@@ -219,15 +290,7 @@ def assign_reviewers(
         "objective_value": objective_value,
         "champ_objective_value": champ_objective_value,
         "cochamp_objective_value": cochamp_objective_value,
-        "output_files": {
-            "assignments": str(assignment_out_path),
-            "assignment_matrix": str(matrix_out_path),
-            "champ_matrix": str(champ_out_path),
-            "cochamp_matrix": str(cochamp_out_path),
-            "assignment_vector": str(vector_out_path),
-            "matching_scores": str(matching_out_path),
-            "text_report": str(text_report_path),
-        },
+        "output_files": out_files_dict,
     }
 
 
@@ -280,6 +343,20 @@ def main():
         default=None,
         help="Optional override for max extra reviews above minimum baseline",
     )
+    parser.add_argument(
+        "--reviews-per-paper",
+        type=int,
+        default=None,
+        help="Optional override for number of reviews required per paper",
+    )
+    parser.add_argument(
+        "--excel-template",
+        help="Path to deliverable Excel template file",
+    )
+    parser.add_argument(
+        "--excel-output",
+        help="Path to write final reviewer assignment deliverable spreadsheet",
+    )
     args = parser.parse_args()
 
     try:
@@ -294,6 +371,9 @@ def main():
             vector_output=args.vector_output,
             report_dir=args.report_dir,
             max_extra_reviews=args.max_extra_reviews,
+            reviews_per_paper=args.reviews_per_paper,
+            excel_template=args.excel_template,
+            excel_output=args.excel_output,
         )
     except Exception as e:
         print(f"Error during reviewer assignment execution: {e}", file=sys.stderr)

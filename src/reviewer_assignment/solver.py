@@ -69,10 +69,12 @@ class ReviewerAssignmentSolver:
             prob += pulp.lpSum(x[r, p] for p in range(num_papers)) >= min_rev
             prob += pulp.lpSum(x[r, p] for p in range(num_papers)) <= max_rev
 
-        # 3. Paper coverage constraints
-        min_pap = self.problem.config.min_reviews_per_paper
+        # 3. Paper coverage constraints (each paper receives exactly reviews_per_paper)
+        revs_per_paper = getattr(
+            self.problem.config, "reviews_per_paper", self.problem.config.min_reviews_per_paper
+        )
         for p in range(num_papers):
-            prob += pulp.lpSum(x[r, p] for r in range(num_reviewers)) >= min_pap
+            prob += pulp.lpSum(x[r, p] for r in range(num_reviewers)) == revs_per_paper
 
         # Solve the model using default PuLP solver (CBC)
         status = prob.solve(pulp.PULP_CBC_CMD(msg=False))

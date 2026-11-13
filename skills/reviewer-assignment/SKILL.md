@@ -69,7 +69,7 @@ results = assign_reviewers(config_path="input_files/config.yaml")
 ## Input Prerequisites Checklist
 
 Before executing, verify the following files exist in `input_files/`:
-1. **`config.yaml`**: Run configuration (`num_reviewers`, `num_papers`, `min_reviews_per_paper`, `max_extra_reviews`, `chair`, `cochair`, and file paths).
+1. **`config.yaml`**: Run configuration (`num_reviewers`, `num_papers`, `reviews_per_paper`, `max_extra_reviews`, `chair`, `cochair`, and file paths).
 2. **`reviewer_expertise.csv`**: Reviewer names (`Firstname`, `Lastname`), `Affiliation`, and scores (`0` to `10`) across technical areas.
 3. **`paper_technical_areas.csv`**: Paper IDs, titles, and populated relevance scores (`0` to `10`) across matching technical areas.
 4. **`must_review.csv`**: Binary matrix ($N_{papers} \times N_{reviewers}$) specifying mandatory reviewer assignments (`1` = forced, `0` = optional).

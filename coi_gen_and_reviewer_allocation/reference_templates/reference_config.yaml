@@ -1,8 +1,11 @@
 num_reviewers: 17
 num_papers: 67
-min_reviews_per_reviewer: 15
-max_reviews_per_reviewer: 20
 min_reviews_per_paper: 4
+max_extra_reviews: 2
+#Min reviews per reviewer will be calculated as : floor (num_papers * min_reviews_per_paper / num_reviewers)
+#Max reviews per reviewer will be calculated as : min_reviews_per_reviewer + max_extra_reviews
+#Max champions will be calculated as : ceiling (num_papers/num_reviewers)
+#Min champions will be calculated as : floor (num_papers/num_reviewers)
 chair: "Shanshan Xie"
 cochair: "Yoonmyung Lee"
 

@@ -57,6 +57,7 @@ def assign_reviewers(
     cochamp_matrix_output: Optional[str] = None,
     vector_output: Optional[str] = None,
     report_dir: Optional[str] = None,
+    max_extra_reviews: Optional[int] = None,
 ) -> Dict[str, Any]:
     """Caller function to run the reviewer assignment optimization workflow.
 
@@ -70,6 +71,7 @@ def assign_reviewers(
         cochamp_matrix_output: Optional override for co-champion matrix CSV output path.
         vector_output: Optional override for assignment vector CSV output path.
         report_dir: Optional override for report output directory.
+        max_extra_reviews: Optional override for maximum reviews per reviewer above baseline minimum.
 
     Returns:
         A dictionary with problem, solver results, objective values, and output file paths.
@@ -80,6 +82,11 @@ def assign_reviewers(
 
     print(f"Loading configuration from {resolved_config}...")
     config = Config.from_yaml(str(resolved_config))
+
+    if max_extra_reviews is not None:
+        config.max_extra_reviews = int(max_extra_reviews)
+        config.max_reviews_per_reviewer = config.min_reviews_per_reviewer + config.max_extra_reviews
+        config.validate()
 
     # Adjust config relative directories if working directory is inside .agents or elsewhere
     def fix_relative_dir(d_str: str) -> str:
@@ -267,6 +274,12 @@ def main():
         "--report-dir",
         help="Directory to save generated report charts",
     )
+    parser.add_argument(
+        "--max-extra-reviews",
+        type=int,
+        default=None,
+        help="Optional override for max extra reviews above minimum baseline",
+    )
     args = parser.parse_args()
 
     try:
@@ -280,6 +293,7 @@ def main():
             cochamp_matrix_output=args.cochamp_matrix_output,
             vector_output=args.vector_output,
             report_dir=args.report_dir,
+            max_extra_reviews=args.max_extra_reviews,
         )
     except Exception as e:
         print(f"Error during reviewer assignment execution: {e}", file=sys.stderr)

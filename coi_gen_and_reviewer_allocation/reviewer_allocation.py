@@ -32,14 +32,29 @@ try:
 except Exception as e:
     pass
 
+import argparse
 from assign_reviewers import assign_reviewers
 
 def main():
+    parser = argparse.ArgumentParser(description="Reviewer Allocation Optimization Flow")
+    parser.add_argument(
+        "--config",
+        default="input_files/cfg_config.yaml",
+        help="Path to configuration YAML file (default: input_files/cfg_config.yaml)",
+    )
+    parser.add_argument(
+        "--max-extra-reviews",
+        type=int,
+        default=None,
+        help="Optional override for max extra reviews per reviewer above minimum baseline",
+    )
+    args = parser.parse_args()
+
     print("=====================================================")
     print("        Step 2: Reviewer Allocation Flow             ")
     print("=====================================================\n")
     
-    config_path = "input_files/cfg_config.yaml"
+    config_path = args.config
     if not os.path.exists(config_path):
         print(f"Error: Missing configuration file '{config_path}'.")
         sys.exit(1)
@@ -57,7 +72,8 @@ def main():
             champ_matrix_output="output_files/champ_assignment_matrix.csv",
             cochamp_matrix_output="output_files/cochamp_assignment_matrix.csv",
             vector_output="output_files/assignment_vector.csv",
-            report_dir="output_files"
+            report_dir="output_files",
+            max_extra_reviews=args.max_extra_reviews,
         )
         print("\n=====================================================")
         print("SUCCESS: Reviewer allocation complete.")

@@ -1,6 +1,6 @@
 num_reviewers: 17
 num_papers: 67
-reviews_per_paper: 4
+reviews_per_paper: 8
 max_extra_reviews: 2
 #Min reviews per reviewer will be calculated as : floor (num_papers * reviews_per_paper / num_reviewers)
 #Max reviews per reviewer will be calculated as : min_reviews_per_reviewer + max_extra_reviews

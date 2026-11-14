@@ -1,0 +1,29 @@
+num_reviewers: 17
+num_papers: 67
+reviews_per_paper: 4
+max_extra_reviews: 2
+#Min reviews per reviewer will be calculated as : floor (num_papers * reviews_per_paper / num_reviewers)
+#Max reviews per reviewer will be calculated as : min_reviews_per_reviewer + max_extra_reviews
+#Max champions/co-champions will be calculated as : floor (num_papers / eligible_reviewers) + 1
+#Min champions/co-champions will be calculated as : floor (num_papers / eligible_reviewers)
+chair: "Shanshan Xie"
+cochair: "Yoonmyung Lee"
+
+input_files_dir: "input_files"
+report_files_dir: "output_files"
+output_files_dir: "output_files"
+
+files:
+  affiliations: "cfg_paper_info.csv"
+  reviewer_expertise: "cfg_reviewer_expertise.csv"
+  paper_technical_areas: "cfg_paper_area.csv"
+  must_review: "cfg_must_review.csv"
+  coi: "cfg_coi.csv"
+  paper_id_and_affiliations: "intermediate_files/paper_id_and_affiliations.csv"
+  paperID_areas: "intermediate_files/paperID_areas.csv"
+  reviewer_paper_match_scores: "intermediate_files/reviewer_paper_match_score.csv"
+  reviewer_assignment_matrix: "reviewer_assignment_matrix.csv"
+  champ_assignment_matrix: "champ_assignment_matrix.csv"
+  cochamp_assignment_matrix: "cochamp_assignment_matrix.csv"
+  assignment_vector: "assignment_vector.csv"
+  assignment_output: "paper_assignment.csv"

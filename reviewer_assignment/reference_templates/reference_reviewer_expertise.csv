@@ -1,0 +1,18 @@
+Firstname,Lastname,Affiliation,Areas,Dig. Circuits,AMS Circuits,CIM,SoC_Processors,ML/AI,Clocking,Sensors,Pwrmgmt,Average,Accelerators,Has a 10? (required),Fill Status
+Shanshan,Xie,Intel,,7,8,10,2,10,0,6,0,5.375,2,OK,Complete
+Yoonmyung,Lee,Sungkyunkwan University,,10,9,10,2,3,7,9,6,7,2,OK,Complete
+Behnam,Amelifard,Qualcomm,,10,9,5,8,8,7,3,6,7,8,OK,Complete
+Ningyuan,Cao,University Of Notre Dame,,9,9,10,10,8,0,2,7,6.875,10,OK,Complete
+Muya,Chang,NVIDIA,,4,2,5,8,10,2,5,4,5,8,OK,Complete
+Gregory,Chen,Intel Corporation,,8,4,6,10,9,7,5,3,6.5,10,OK,Complete
+Sumanth ,Kamineni ,Nvidia,,5,2,6,7,10,4,1,5,5,7,OK,Complete
+Kyuho,Lee,Yonsei University,,4,2,10,8,8,5,4,4,5.625,8,OK,Complete
+Sukhan ,Lee,Samsung,,3,4,9,10,9,2,3,5,5.625,10,OK,Complete
+Ashwin,Lele,TSMC,,8,5,9,10,8,3,4,1,6,10,OK,Complete
+Yimai,Peng,Qualcomm Technologies Inc.,,10,5,2,10,3,7,10,7,6.75,10,OK,Complete
+Weiwei,Shan,Southeast University,,10,5,7,8,10,6,7,9,7.75,8,OK,Complete
+Jong-Hyeok ,Yoon,Daegu Gyeongbuk Inst. of Sci. & Tech. (DGIST),,8,10,10,6,6,7,0,3,6.25,6,OK,Complete
+Kyungmi,Lee,Rice University,,6,1,6,9,10,3,3,4,5.25,9,OK,Complete
+Hechen,Wang,Multiplier Technologies,,7,9,10,5,8,8,9,6,7.75,5,OK,Complete
+Aoyang,Zhang,Tsinghua University,,7,10,9,4,9,2,5,5,6.375,4,OK,Complete
+Po-Tsang,Huang,National Yang Ming Chiao Tung University,,10,7,10,10,10,9,5,7,8.5,10,OK,Complete

@@ -1,0 +1,112 @@
+=====================================================
+   CONFLICT OF INTEREST (COI) AUDIT REPORT           
+=====================================================
+
+Total Papers: 67
+Total Reviewers: 17
+Total Institutional Conflicts Detected: 18
+
+--- Reviewer Conflict Summary ---
+  • Shanshan Xie (Intel): 2 conflicts
+  • Yoonmyung Lee (Sungkyunkwan University): 1 conflicts
+  • Behnam Amelifard (Qualcomm): 0 conflicts
+  • Ningyuan Cao (University Of Notre Dame): 0 conflicts
+  • Muya Chang (NVIDIA): 0 conflicts
+  • Gregory Chen (Intel Corporation): 2 conflicts
+  • Sumanth Kamineni (Nvidia): 0 conflicts
+  • Kyuho Lee (Yonsei University): 0 conflicts
+  • Sukhan Lee (Samsung): 1 conflicts
+  • Ashwin Lele (TSMC): 1 conflicts
+  • Yimai Peng (Qualcomm Technologies Inc.): 0 conflicts
+  • Weiwei Shan (Southeast University): 7 conflicts
+  • Jong-Hyeok Yoon (Daegu Gyeongbuk Inst. of Sci. & Tech. (DGIST)): 0 conflicts
+  • Kyungmi Lee (Rice University): 0 conflicts
+  • Hechen Wang (Multiplier Technologies): 0 conflicts
+  • Aoyang Zhang (Tsinghua University): 3 conflicts
+  • Po-Tsang Huang (National Yang Ming Chiao Tung University): 1 conflicts
+
+--- Itemized Conflict Details ---
+
+Paper 31:
+  - Reviewer: Weiwei Shan [Southeast University]
+    Matched:  Southeast University
+    Reason:   Substring / heuristic match: 'Southeast University' matches 'Southeast University'
+
+Paper 32:
+  - Reviewer: Weiwei Shan [Southeast University]
+    Matched:  Southeast University
+    Reason:   Substring / heuristic match: 'Southeast University' matches 'Southeast University'
+
+Paper 34:
+  - Reviewer: Aoyang Zhang [Tsinghua University]
+    Matched:  Tsinghua University
+    Reason:   Substring / heuristic match: 'Tsinghua University' matches 'Tsinghua University'
+
+Paper 57:
+  - Reviewer: Aoyang Zhang [Tsinghua University]
+    Matched:  School of Integrated Circuits, Tsinghua University, Beijing, China
+    Reason:   Substring / heuristic match: 'Tsinghua University' matches 'School of Integrated Circuits, Tsinghua University, Beijing, China'
+
+Paper 224:
+  - Reviewer: Ashwin Lele [TSMC]
+    Matched:  TSMC, Hsinchu, Taiwan
+    Reason:   Substring / heuristic match: 'TSMC' matches 'TSMC, Hsinchu, Taiwan'
+
+Paper 294:
+  - Reviewer: Po-Tsang Huang [National Yang Ming Chiao Tung University]
+    Matched:  National Yang Ming Chiao Tung University
+    Reason:   Substring / heuristic match: 'National Yang Ming Chiao Tung University' matches 'National Yang Ming Chiao Tung University'
+
+Paper 328:
+  - Reviewer: Weiwei Shan [Southeast University]
+    Matched:  Southeast University
+    Reason:   Substring / heuristic match: 'Southeast University' matches 'Southeast University'
+
+Paper 333:
+  - Reviewer: Weiwei Shan [Southeast University]
+    Matched:  Southeast University
+    Reason:   Substring / heuristic match: 'Southeast University' matches 'Southeast University'
+
+Paper 358:
+  - Reviewer: Yoonmyung Lee [Sungkyunkwan University]
+    Matched:  Sungkyunkwan University
+    Reason:   Substring / heuristic match: 'Sungkyunkwan University' matches 'Sungkyunkwan University'
+  - Reviewer: Sukhan Lee [Samsung]
+    Matched:  Samsung Electronics
+    Reason:   Substring / heuristic match: 'Samsung' matches 'Samsung Electronics'
+
+Paper 408:
+  - Reviewer: Shanshan Xie [Intel]
+    Matched:  Intel Corporation
+    Reason:   Substring / heuristic match: 'Intel' matches 'Intel Corporation'
+  - Reviewer: Gregory Chen [Intel Corporation]
+    Matched:  Intel Corporation
+    Reason:   Substring / heuristic match: 'Intel Corporation' matches 'Intel Corporation'
+
+Paper 483:
+  - Reviewer: Weiwei Shan [Southeast University]
+    Matched:  Southeast University
+    Reason:   Substring / heuristic match: 'Southeast University' matches 'Southeast University'
+
+Paper 581:
+  - Reviewer: Aoyang Zhang [Tsinghua University]
+    Matched:  Tsinghua University
+    Reason:   Substring / heuristic match: 'Tsinghua University' matches 'Tsinghua University'
+
+Paper 606:
+  - Reviewer: Shanshan Xie [Intel]
+    Matched:  Intel
+    Reason:   Substring / heuristic match: 'Intel' matches 'Intel'
+  - Reviewer: Gregory Chen [Intel Corporation]
+    Matched:  Intel
+    Reason:   Substring / heuristic match: 'Intel Corporation' matches 'Intel'
+
+Paper 629:
+  - Reviewer: Weiwei Shan [Southeast University]
+    Matched:  Southeast University
+    Reason:   Substring / heuristic match: 'Southeast University' matches 'Southeast University'
+
+Paper 654:
+  - Reviewer: Weiwei Shan [Southeast University]
+    Matched:  Southeast University
+    Reason:   Substring / heuristic match: 'Southeast University' matches 'Southeast University'
